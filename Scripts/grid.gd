@@ -22,9 +22,12 @@ var grid = [] # characters, read as grid[y][x]
 
 var exit = [-1, 2] # We define the exit here, where one of the values should be outside the grid.
 
+var blocks = {} # each block's cells, keyed by its character
+
+var highlightedCells = [] # the cells the selected block can move to
+
 func _ready() -> void:
 	# Read the strings into the grid, collecting the cells of each block.
-	var blocks = {}
 	for y in layout.size():
 		var row = []
 		for x in layout[y].length():
@@ -67,6 +70,39 @@ func _unhandled_input(event: InputEvent) -> void:
 		var cell = Vector2i((make_input_local(event).position / (gridSize + padding)).round())
 		if is_clickable_cell(cell):
 			print("Clicked cell ", cell)
+			update_highlights(cell)
+
+# Highlights where the clicked block can move. Any other click clears them.
+func update_highlights(cell: Vector2i) -> void:
+	highlightedCells = []
+	if not grid.is_empty() and [cell.x, cell.y] != exit:
+		var c = grid[cell.y][cell.x]
+		if blocks.has(c):
+			highlightedCells = find_moves(blocks[c][0], blocks[c][-1], c)
+	queue_redraw()
+
+# Scans outward from both ends of a block, stopping at the first cell that isn't free.
+func find_moves(first: Vector2i, last: Vector2i, c: String) -> Array:
+	var direction = (last - first).sign()
+	var moves = []
+
+	var cell = last + direction
+	while is_free(cell, c):
+		moves.append(cell)
+		cell += direction
+
+	cell = first - direction
+	while is_free(cell, c):
+		moves.append(cell)
+		cell -= direction
+
+	return moves
+
+# Checks the exit first, because a negative index would read from the end of a row.
+func is_free(cell: Vector2i, c: String) -> bool:
+	if [cell.x, cell.y] == exit:
+		return c == "*"
+	return is_clickable_cell(cell) and grid[cell.y][cell.x] == "."
 
 # True for every cell inside the grid, plus the exit.
 func is_clickable_cell(cell: Vector2i) -> bool:
@@ -86,6 +122,10 @@ func _draw() -> void:
 			if onBorder and [x, y] != exit:
 				var center = Vector2(x, y) * step
 				draw_rect(Rect2(center - cellVector / 2.0, cellVector), Color.DIM_GRAY)
+
+	for cell in highlightedCells:
+		var center = Vector2(cell) * step
+		draw_rect(Rect2(center - cellVector / 2.0, cellVector), Color(1, 1, 0, 0.4))
 
 func is_valid_character(c: String) -> bool:
 	return c == "*" or c.is_valid_int() or c.to_lower() != c.to_upper()
