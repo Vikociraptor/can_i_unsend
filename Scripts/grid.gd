@@ -14,7 +14,7 @@ const blockSceneSize = 40.0 # width and height of block.tscn before scaling
 	"aa..b",
 	"c...b",
 	"c**..",
-	"c.dd.",
+	"..dd.",
 	"eee..",
 ]
 
@@ -24,7 +24,11 @@ var exit = [-1, 2] # We define the exit here, where one of the values should be 
 
 var blocks = {} # each block's cells, keyed by its character
 
+var blockNodes = {} # each block's node, keyed by its character
+
 var highlightedCells = [] # the cells the selected block can move to
+
+var selectedBlock = "" # the selected block's character, empty when nothing is selected
 
 func _ready() -> void:
 	# Read the strings into the grid, collecting the cells of each block.
@@ -61,6 +65,7 @@ func _ready() -> void:
 		if c == "*":
 			block.get_node("ColorRect").color = Color.RED
 		add_child(block)
+		blockNodes[c] = block
 
 	var lastCell = Vector2(layout[0].length() - 1, layout.size() - 1)
 	camera.position = lastCell * step / 2.0
@@ -70,14 +75,20 @@ func _unhandled_input(event: InputEvent) -> void:
 		var cell = Vector2i((make_input_local(event).position / (gridSize + padding)).round())
 		if is_clickable_cell(cell):
 			print("Clicked cell ", cell)
-			update_highlights(cell)
+			if highlightedCells.has(cell):
+				move(selectedBlock, cell)
+				selectedBlock = ""
+			else:
+				update_highlights(cell)
 
-# Highlights where the clicked block can move. Any other click clears them.
+# Selects the clicked block and highlights where it can move. Any other click clears them.
 func update_highlights(cell: Vector2i) -> void:
 	highlightedCells = []
+	selectedBlock = ""
 	if not grid.is_empty() and [cell.x, cell.y] != exit:
 		var c = grid[cell.y][cell.x]
 		if blocks.has(c):
+			selectedBlock = c
 			highlightedCells = find_moves(blocks[c][0], blocks[c][-1], c)
 	queue_redraw()
 
@@ -139,3 +150,32 @@ func is_straight_line(cells: Array) -> bool:
 		if cells[i] != cells[0] + direction * i:
 			return false
 	return true
+
+# Moves block c so that its start or end, whichever faces the way it's moving, lands on targetCell.
+func move(c: String, targetCell: Vector2i) -> void:
+	var cells = blocks[c]
+	var direction = (cells[-1] - cells[0]).sign()
+
+	var offset = targetCell - cells[0]
+	if offset.sign() == direction:
+		offset = targetCell - cells[-1]
+
+	for cell in cells:
+		set_grid_cell(cell, ".")
+	for i in cells.size():
+		cells[i] += offset
+	for cell in cells:
+		set_grid_cell(cell, c)
+
+	blockNodes[c].position = Vector2(cells[0] + cells[-1]) / 2.0 * (gridSize + padding)
+
+	highlightedCells = []
+	queue_redraw()
+
+	if c == "*" and [targetCell.x, targetCell.y] == exit:
+		print("Winner winner chicken dinner")
+
+# The exit isn't in the grid, so it's skipped. A negative index would write to the end of a row.
+func set_grid_cell(cell: Vector2i, value: String) -> void:
+	if [cell.x, cell.y] != exit:
+		grid[cell.y][cell.x] = value
