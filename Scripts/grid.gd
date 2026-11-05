@@ -62,6 +62,17 @@ func _ready() -> void:
 	var lastCell = Vector2(layout[0].length() - 1, layout.size() - 1)
 	camera.position = lastCell * step / 2.0
 
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		var cell = Vector2i((make_input_local(event).position / (gridSize + padding)).round())
+		if is_clickable_cell(cell):
+			print("Clicked cell ", cell)
+
+# True for every cell inside the grid, plus the exit.
+func is_clickable_cell(cell: Vector2i) -> bool:
+	var insideGrid = cell.x >= 0 and cell.y >= 0 and cell.x < layout[0].length() and cell.y < layout.size()
+	return insideGrid or [cell.x, cell.y] == exit
+
 # Draws a ring of cells around the grid, leaving a gap at the exit.
 func _draw() -> void:
 	var step = gridSize + padding
