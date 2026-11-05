@@ -1,3 +1,5 @@
+class_name GridManager
+
 extends Node2D
 
 const gridSize = 80
@@ -29,6 +31,9 @@ var blockNodes = {} # each block's node, keyed by its character
 var highlightedCells = [] # the cells the selected block can move to
 
 var selectedBlock = "" # the selected block's character, empty when nothing is selected
+
+var levelWon = false
+var levelLost = false
 
 func _ready() -> void:
 	# Read the strings into the grid, collecting the cells of each block.
@@ -71,7 +76,7 @@ func _ready() -> void:
 	camera.position = lastCell * step / 2.0
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed and !levelWon and !levelLost:
 		var cell = Vector2i((make_input_local(event).position / (gridSize + padding)).round())
 		if is_clickable_cell(cell):
 			print("Clicked cell ", cell)
@@ -174,6 +179,7 @@ func move(c: String, targetCell: Vector2i) -> void:
 
 	if c == "*" and [targetCell.x, targetCell.y] == exit:
 		print("Winner winner chicken dinner")
+		levelWon = !levelWon
 
 # The exit isn't in the grid, so it's skipped. A negative index would write to the end of a row.
 func set_grid_cell(cell: Vector2i, value: String) -> void:
