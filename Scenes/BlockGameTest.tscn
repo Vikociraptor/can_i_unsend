@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bgnq337p6dk7f"]
+
+[ext_resource type="Script" uid="uid://mgogmh6aapox" path="res://Scripts/grid.gd" id="1_c5l7u"]
+[ext_resource type="PackedScene" uid="uid://b6bk20wwj8asn" path="res://PackedScenes/block.tscn" id="2_vhfur"]
+
+[node name="BlockGameTest" type="Node2D" unique_id=125345209]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1785111156]
+
+[node name="Grid" type="Node2D" parent="." unique_id=386474983 node_paths=PackedStringArray("camera")]
+script = ExtResource("1_c5l7u")
+obstacleBlock = ExtResource("2_vhfur")
+camera = NodePath("../Camera2D")
