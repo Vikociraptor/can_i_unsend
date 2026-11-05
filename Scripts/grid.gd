@@ -62,6 +62,20 @@ func _ready() -> void:
 	var lastCell = Vector2(layout[0].length() - 1, layout.size() - 1)
 	camera.position = lastCell * step / 2.0
 
+# Draws a ring of cells around the grid, leaving a gap at the exit.
+func _draw() -> void:
+	var step = gridSize + padding
+	var width = layout[0].length()
+	var height = layout.size()
+	var cellVector = Vector2.ONE * gridSize
+
+	for y in range(-1, height + 1):
+		for x in range(-1, width + 1):
+			var onBorder = x == -1 or y == -1 or x == width or y == height
+			if onBorder and [x, y] != exit:
+				var center = Vector2(x, y) * step
+				draw_rect(Rect2(center - cellVector / 2.0, cellVector), Color.DIM_GRAY)
+
 func is_valid_character(c: String) -> bool:
 	return c == "*" or c.is_valid_int() or c.to_lower() != c.to_upper()
 
