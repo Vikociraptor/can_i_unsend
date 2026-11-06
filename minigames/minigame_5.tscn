@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://dywojcuxeq3t4"]
+
+[ext_resource type="Script" uid="uid://eqpjjf0psawt" path="res://minigames/minigame.gd" id="1_qjdbl"]
+
+[node name="Minigame1" type="Node2D" unique_id=553078582]
+script = ExtResource("1_qjdbl")
+
+[node name="Label" type="Label" parent="." unique_id=347976614]
+offset_left = 456.0
+offset_top = 200.0
+offset_right = 692.0
+offset_bottom = 258.0
+theme_override_font_sizes/font_size = 42
+text = "Minigame 5"
+
+[node name="Button" type="Label" parent="." unique_id=1070658440]
+offset_left = 541.0
+offset_top = 367.0
+offset_right = 601.0
+offset_bottom = 399.0
+theme_override_font_sizes/font_size = 23
+text = "Press"
+
+[node name="Button" type="Button" parent="Button" unique_id=29830344]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="exit" type="Button" parent="." unique_id=1506732584]
+offset_left = 819.0
+offset_top = 97.0
+offset_right = 837.0
+offset_bottom = 128.0
+text = "-"
+
+[connection signal="pressed" from="Button/Button" to="." method="_on_button_pressed"]
