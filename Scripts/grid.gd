@@ -13,11 +13,11 @@ const blockSceneSize = 40.0 # width and height of block.tscn before scaling
 # "." is an empty cell. Any other valid character is one straight block.
 # "*" is the goal block.
 @export var layout: PackedStringArray = [
-	"aa..b",
-	"c...b",
-	"c**..",
-	"..dd.",
-	"eee..",
+	"kkaab",
+	"c..vb",
+	"c**v.",
+	"...v.",
+	"eeev.",
 ]
 
 var grid = [] # characters, read as grid[y][x]
