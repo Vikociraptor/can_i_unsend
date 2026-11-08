@@ -2,7 +2,8 @@ extends Node
 
 @export var timeToWin = 20.0
 
-@export var grid: GridManager
+# Works with any grid that has levelWon and levelLost, e.g. GridManager or FlowGrid.
+@export var grid: Node2D
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

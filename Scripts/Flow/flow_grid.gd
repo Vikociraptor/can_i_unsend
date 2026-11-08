@@ -28,6 +28,9 @@ var lines = {} # each line's cells in order, starting at one of its dots, keyed 
 
 var drawingLine = "" # the character of the line being dragged, empty when not dragging
 
+var levelWon = false
+var levelLost = false
+
 func _ready() -> void:
 	# Read the strings into the grid, collecting the cells of each dot.
 	for y in layout.size():
@@ -55,7 +58,7 @@ func _ready() -> void:
 
 # Left press on a dot starts a line, dragging extends it, releasing stops. Right click deletes a line.
 func _unhandled_input(event: InputEvent) -> void:
-	if grid.is_empty():
+	if grid.is_empty() or levelWon or levelLost:
 		return
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
@@ -92,7 +95,16 @@ func drag_line(cell: Vector2i) -> void:
 		line.resize(index + 1)
 	elif can_extend(line, cell):
 		line.append(cell)
+		if all_pairs_joined():
+			print("Winner winner chicken dinner")
+			levelWon = true
 	queue_redraw()
+
+func all_pairs_joined() -> bool:
+	for c in dots:
+		if not is_complete(c):
+			return false
+	return true
 
 # The next cell must be directly beside the end of the line, and either empty or this line's other dot.
 func can_extend(line: Array, cell: Vector2i) -> bool:
