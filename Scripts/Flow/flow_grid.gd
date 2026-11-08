@@ -48,9 +48,10 @@ func _ready() -> void:
 	var lastCell = Vector2(layout[0].length() - 1, layout.size() - 1)
 	camera.position = lastCell * step / 2.0
 
-# Hashes the character into a hue, so the same character always gets the same colour.
+# Turns the character's code into a hue, so the same character always gets the same colour.
+# Multiplying by the golden ratio spreads neighbouring characters (a, b, c...) far apart on the colour wheel.
 func colour_for(c: String) -> Color:
-	var hue = posmod(hash(c), 360) / 360.0
+	var hue = fmod(c.unicode_at(0) * 0.618034, 1.0)
 	return Color.from_hsv(hue, 0.8, 0.95)
 
 # Draws every cell of the grid, then a circle on each dot.
