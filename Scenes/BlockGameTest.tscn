@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://bgnq337p6dk7f"]
 
-[ext_resource type="Script" uid="uid://mgogmh6aapox" path="res://Scripts/grid.gd" id="1_c5l7u"]
+[ext_resource type="Script" uid="uid://mgogmh6aapox" path="res://Scripts/UnblockMe/grid.gd" id="1_c5l7u"]
 [ext_resource type="PackedScene" uid="uid://b6bk20wwj8asn" path="res://PackedScenes/block.tscn" id="2_vhfur"]
-[ext_resource type="Script" uid="uid://dlhmev3ivhtg0" path="res://Scripts/block_game_manager.gd" id="3_r288n"]
+[ext_resource type="Script" uid="uid://dlhmev3ivhtg0" path="res://Scripts/UnblockMe/block_game_manager.gd" id="3_r288n"]
 
 [node name="BlockGameTest" type="Node2D" unique_id=125345209]
 

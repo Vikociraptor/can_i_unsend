@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://d1jrn8i0hjv82"]
+
+[ext_resource type="Script" uid="uid://crqdnptf5rq8v" path="res://Scripts/Flow/flow_grid.gd" id="1_flow"]
+
+[node name="FlowGameTest" type="Node2D" unique_id=1898624422]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1203948571]
+
+[node name="Grid" type="Node2D" parent="." unique_id=874512036 node_paths=PackedStringArray("camera")]
+script = ExtResource("1_flow")
+camera = NodePath("../Camera2D")
