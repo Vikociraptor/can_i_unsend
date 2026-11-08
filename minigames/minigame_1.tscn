@@ -5,6 +5,13 @@
 [node name="Minigame1" type="Node2D" unique_id=553078582]
 script = ExtResource("1_3jprq")
 
+[node name="CanvasLayer" type="Panel" parent="." unique_id=1009981089]
+custom_minimum_size = Vector2(400, 300)
+offset_left = 293.0
+offset_top = 68.0
+offset_right = 877.0
+offset_bottom = 509.0
+
 [node name="Label" type="Label" parent="." unique_id=347976614]
 offset_left = 456.0
 offset_top = 200.0
