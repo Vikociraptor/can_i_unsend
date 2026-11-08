@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://b51456v01gsi4"]
 
+[ext_resource type="Script" uid="uid://qusoqofohtyg" path="res://main_menu.gd" id="1_h7a2f"]
 [ext_resource type="Texture2D" uid="uid://cpsin6sglkrvh" path="res://assets/title.png" id="1_i26rj"]
 [ext_resource type="Texture2D" uid="uid://i82ux34lj7cf" path="res://assets/menu_img.png" id="2_eiy7p"]
 
@@ -15,6 +16,7 @@ theme_override_constants/margin_left = 120
 theme_override_constants/margin_top = 80
 theme_override_constants/margin_right = 120
 theme_override_constants/margin_bottom = 80
+script = ExtResource("1_h7a2f")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1863602798]
 layout_mode = 2
@@ -41,11 +43,27 @@ size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 32
 text = "Play"
 
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/VBoxContainer/Play" unique_id=1793623236]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="Options" type="Label" parent="HBoxContainer/VBoxContainer/VBoxContainer" unique_id=1472856704]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 32
 text = "Options"
+
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/VBoxContainer/Options" unique_id=824710926]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Label" type="Label" parent="HBoxContainer/VBoxContainer" unique_id=2124586751]
 custom_minimum_size = Vector2(0, 150)
@@ -65,3 +83,53 @@ layout_mode = 2
 texture = ExtResource("2_eiy7p")
 expand_mode = 1
 stretch_mode = 5
+
+[node name="OptionsPanel" type="PanelContainer" parent="." unique_id=1002923669]
+visible = false
+custom_maximum_size = Vector2(300, 400)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="OptionsPanel" unique_id=1912433695]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="OptionsPanel/VBoxContainer" unique_id=284492827]
+layout_mode = 2
+text = "SETTINGS"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="OptionsPanel/VBoxContainer" unique_id=779852460]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="OptionsPanel/VBoxContainer/HBoxContainer" unique_id=713472177]
+layout_mode = 2
+text = "Sound"
+
+[node name="CheckButton" type="CheckButton" parent="OptionsPanel/VBoxContainer/HBoxContainer" unique_id=640023564]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="OptionsPanel/VBoxContainer" unique_id=835698233]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="OptionsPanel/VBoxContainer/HBoxContainer2" unique_id=1118340586]
+layout_mode = 2
+text = "Music"
+
+[node name="CheckButton" type="CheckButton" parent="OptionsPanel/VBoxContainer/HBoxContainer2" unique_id=1395637663]
+layout_mode = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="OptionsPanel/VBoxContainer" unique_id=1637114621]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="OptionsPanel/VBoxContainer/HBoxContainer3" unique_id=396516202]
+layout_mode = 2
+text = "Language"
+
+[node name="CheckButton" type="CheckButton" parent="OptionsPanel/VBoxContainer/HBoxContainer3" unique_id=1725711161]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="OptionsPanel/VBoxContainer" unique_id=770473495]
+layout_mode = 2
+text = "X"
+
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/VBoxContainer/Play/Button" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/VBoxContainer/Options/Button" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="OptionsPanel/VBoxContainer/Button" to="." method="_on_close_button_pressed"]
