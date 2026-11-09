@@ -2,6 +2,8 @@ extends Node2D
 
 signal finished
 
+@export var display_name := "Minigame"
+
 @onready var button: Button = $Button/Button
 
 func _ready() -> void:

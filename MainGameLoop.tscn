@@ -10,3 +10,8 @@
 [node name="MainGameLoop" type="Node2D" unique_id=682557079]
 script = ExtResource("1_v8d43")
 all_minigames = Array[PackedScene]([ExtResource("2_h46g1"), ExtResource("3_d1nqu"), ExtResource("4_5n4ns"), ExtResource("5_5n4ns"), ExtResource("6_e2yq2")])
+
+[node name="IntroLabel" type="Label" parent="." unique_id=72889644]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Type the result of x y z to stop the email send"

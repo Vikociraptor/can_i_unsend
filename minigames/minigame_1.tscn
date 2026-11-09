@@ -4,6 +4,7 @@
 
 [node name="Minigame1" type="Node2D" unique_id=553078582]
 script = ExtResource("1_3jprq")
+display_name = "1"
 
 [node name="CanvasLayer" type="Panel" parent="." unique_id=1009981089]
 custom_minimum_size = Vector2(400, 300)

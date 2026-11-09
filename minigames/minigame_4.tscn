@@ -4,6 +4,7 @@
 
 [node name="Minigame1" type="Node2D" unique_id=553078582]
 script = ExtResource("1_asnjd")
+display_name = "4"
 
 [node name="Label" type="Label" parent="." unique_id=347976614]
 offset_left = 456.0
