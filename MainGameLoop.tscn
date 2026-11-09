@@ -11,7 +11,37 @@
 script = ExtResource("1_v8d43")
 all_minigames = Array[PackedScene]([ExtResource("2_h46g1"), ExtResource("3_d1nqu"), ExtResource("4_5n4ns"), ExtResource("5_5n4ns"), ExtResource("6_e2yq2")])
 
-[node name="IntroLabel" type="Label" parent="." unique_id=72889644]
-offset_right = 40.0
-offset_bottom = 23.0
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=672813929]
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer" unique_id=1400421367]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer" unique_id=1317877062]
+layout_mode = 2
+offset_transform_position = Vector2(0, -30)
+mouse_filter = 2
+
+[node name="IntroLabel" type="Label" parent="CanvasLayer/CenterContainer/VBoxContainer" unique_id=72889644]
+layout_mode = 2
 text = "Type the result of x y z to stop the email send"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/CenterContainer/VBoxContainer" unique_id=1539065076]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer" unique_id=744836215]
+custom_minimum_size = Vector2(400, 30)
+layout_mode = 2
+placeholder_text = "Enter code here"
+
+[node name="Button" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer" unique_id=1539606906]
+layout_mode = 2
+text = "Submit"
+
+[connection signal="pressed" from="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer/Button" to="." method="_on_submit_button_pressed"]

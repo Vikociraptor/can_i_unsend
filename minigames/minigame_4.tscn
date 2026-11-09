@@ -30,6 +30,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="Result" type="Label" parent="." unique_id=1393454766]
+offset_left = 541.0
+offset_top = 367.0
+offset_right = 601.0
+offset_bottom = 399.0
+theme_override_font_sizes/font_size = 23
+
 [node name="exit" type="Button" parent="." unique_id=1506732584]
 offset_left = 819.0
 offset_top = 97.0
