@@ -7,6 +7,8 @@ extends Node2D
 @export var max_scale := 1.0
 @export var intro_duration := 1.0
 @export var words: Array[String] = ["apple", "rocket", "banana", "spider", "pickle", "laptop", "cactus", "wizard"]
+@export var timer := 20.0;
+@export var timerLabel: Label
 
 signal code_correct
 signal code_wrong
@@ -46,6 +48,14 @@ func _ready() -> void:
 	
 	for minigame in minigames:
 		place_minigame(minigame)
+		
+func _process(delta: float) -> void:
+	if timer > 5.0:
+		timerLabel.text = str(int(floor(timer)))
+	else:
+		timerLabel.text = str(max(0.0, timer))
+	if timer > 0.0:
+		timer -= delta
 	
 func place_minigame(minigame: Node2D) -> void:
 	minigame.finished.connect(_on_minigame_finished.bind(minigame), CONNECT_ONE_SHOT)

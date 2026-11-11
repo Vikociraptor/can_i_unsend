@@ -4,9 +4,10 @@
 [ext_resource type="PackedScene" path="res://minigames/flow_minigame.tscn" id="7_flow"]
 [ext_resource type="PackedScene" path="res://minigames/unblock_minigame.tscn" id="8_unblock"]
 
-[node name="MainGameLoop" type="Node2D" unique_id=682557079]
+[node name="MainGameLoop" type="Node2D" unique_id=682557079 node_paths=PackedStringArray("timerLabel")]
 script = ExtResource("1_v8d43")
 all_minigames = Array[PackedScene]([ExtResource("7_flow"), ExtResource("8_unblock")])
+timerLabel = NodePath("CanvasLayer/Timer")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=672813929]
 
@@ -40,5 +41,11 @@ placeholder_text = "Enter code here"
 [node name="Button" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer" unique_id=1539606906]
 layout_mode = 2
 text = "Submit"
+
+[node name="Timer" type="Label" parent="CanvasLayer" unique_id=163595563]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "20"
+horizontal_alignment = 1
 
 [connection signal="pressed" from="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer/Button" to="." method="_on_submit_button_pressed"]
