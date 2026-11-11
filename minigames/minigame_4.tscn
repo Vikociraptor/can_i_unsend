@@ -41,6 +41,9 @@ region = Rect2(80, 0, 16, 16)
 atlas = ExtResource("5_jbnu7")
 region = Rect2(48, 0, 16, 16)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_be312"]
+size = Vector2(496.5, 55)
+
 [node name="Minigame4" type="Node2D" unique_id=553078582]
 script = ExtResource("1_3jprq")
 display_name = "4"
@@ -137,4 +140,12 @@ offset_right = 601.0
 offset_bottom = 399.0
 theme_override_font_sizes/font_size = 23
 
+[node name="MoveArea" type="Area2D" parent="." unique_id=2037982697]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MoveArea" unique_id=1544029002]
+position = Vector2(545.75, 100.5)
+shape = SubResource("RectangleShape2D_be312")
+
 [connection signal="pressed" from="Button/Button" to="." method="_on_button_pressed"]
+[connection signal="mouse_entered" from="MoveArea" to="." method="_on_move_area_mouse_entered"]
+[connection signal="mouse_exited" from="MoveArea" to="." method="_on_move_area_mouse_exited"]

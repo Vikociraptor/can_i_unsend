@@ -5,7 +5,7 @@ extends Node2D
 @export var screen_margin := 16.0
 @export var min_scale := 0.6
 @export var max_scale := 1.0
-@export var intro_duration := 3.0
+@export var intro_duration := 1.0
 @export var words: Array[String] = ["apple", "rocket", "banana", "spider", "pickle", "laptop", "cactus", "wizard"]
 
 signal code_correct
@@ -18,6 +18,7 @@ var remaining := 0
 var available_words: Array[String] = []
 var results: Dictionary = {}
 var code_order: Array[String] = []
+var placed_minigames: Array[Node2D] = []
 
 func _ready() -> void:
 	available_words = words.duplicate()
@@ -49,6 +50,7 @@ func _ready() -> void:
 func place_minigame(minigame: Node2D) -> void:
 	minigame.finished.connect(_on_minigame_finished.bind(minigame), CONNECT_ONE_SHOT)
 	add_child(minigame)
+	placed_minigames.append(minigame)
 
 	var random_scale := randf_range(min_scale, max_scale)
 	minigame.scale = Vector2.ONE * random_scale
@@ -62,6 +64,27 @@ func place_minigame(minigame: Node2D) -> void:
 		randf_range(screen_margin, max_pos.y)
 	)
 	minigame.position = top_left - bounds.position * random_scale
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		_activate_window_at(get_global_mouse_position())
+
+func _activate_window_at(point: Vector2) -> void:
+	var clicked: Node2D = null
+	var order := placed_minigames.duplicate()
+	order.sort_custom(func(a, b): return a.z_index > b.z_index or (a.z_index == b.z_index and a.get_index() > b.get_index()))
+	for minigame in order:
+		if is_instance_valid(minigame) and minigame.visible and minigame.contains_point(point):
+			clicked = minigame
+			break
+
+	# Clicking empty space makes every window inactive.
+	for minigame in placed_minigames:
+		if is_instance_valid(minigame):
+			minigame.set_active(minigame == clicked)
+
+	if clicked:
+		move_child(clicked, -1)
 
 func _get_content_bounds(minigame: Node2D) -> Rect2:
 	var bounds := Rect2()
