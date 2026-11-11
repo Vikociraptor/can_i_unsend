@@ -2,12 +2,13 @@ extends Node2D
 
 @export var all_minigames: Array[PackedScene] = []
 @export var minigame_count := 2
-@export var screen_margin := 16.0
-@export var min_scale := 0.6
-@export var max_scale := 1.0
+@export var spawn_positions: Array[Vector2] = [
+	Vector2(40, 40), Vector2(600, 40), Vector2(40, 330), Vector2(600, 330)
+]
+@export var minigame_scale := 0.6
 @export var intro_duration := 1.0
 @export var words: Array[String] = ["apple", "rocket", "banana", "spider", "pickle", "laptop", "cactus", "wizard"]
-@export var timer := 20.0;
+@export var timer := 21.0;
 @export var timerLabel: Label
 
 signal code_correct
@@ -66,18 +67,14 @@ func place_minigame(minigame: Node2D) -> void:
 	add_child(minigame)
 	placed_minigames.append(minigame)
 
-	var random_scale := randf_range(min_scale, max_scale)
-	minigame.scale = Vector2.ONE * random_scale
+	var index := placed_minigames.size() - 1
+	if index >= spawn_positions.size():
+		push_warning("No spawn position for minigame #%d; add more to spawn_positions." % (index + 1))
+	var target: Vector2 = spawn_positions[index] if index < spawn_positions.size() else Vector2.ZERO
 
+	minigame.scale = Vector2.ONE * minigame_scale
 	var bounds := _get_content_bounds(minigame)
-	var scaled_size := bounds.size * random_scale
-	var screen := get_viewport_rect().size
-	var max_pos := (screen - scaled_size - Vector2.ONE * screen_margin).max(Vector2.ONE * screen_margin)
-	var top_left := Vector2(
-		randf_range(screen_margin, max_pos.x),
-		randf_range(screen_margin, max_pos.y)
-	)
-	minigame.position = top_left - bounds.position * random_scale
+	minigame.position = target - bounds.position * minigame_scale
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
@@ -124,7 +121,7 @@ func get_expected_code() -> String:
 	var parts := PackedStringArray()
 	for minigame_name in code_order:
 		parts.append(results.get(minigame_name, ""))
-	return "".join(parts)
+	return " ".join(parts)
 
 # Lowercase and collapse spaces/newlines
 func _normalize(text: String) -> String:
