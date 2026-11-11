@@ -56,6 +56,10 @@ func _process(delta: float) -> void:
 		timerLabel.text = str(max(0.0, timer))
 	if timer > 0.0:
 		timer -= delta
+	else:
+		for minigame in placed_minigames:
+			if is_instance_valid(minigame):
+				minigame.game.levelLost = true
 	
 func place_minigame(minigame: Node2D) -> void:
 	minigame.finished.connect(_on_minigame_finished.bind(minigame), CONNECT_ONE_SHOT)
