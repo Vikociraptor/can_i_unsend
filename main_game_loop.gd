@@ -53,8 +53,6 @@ func place_minigame(minigame: Node2D) -> void:
 	var random_scale := randf_range(min_scale, max_scale)
 	minigame.scale = Vector2.ONE * random_scale
 
-	# The minigame's content isn't drawn at its origin (it sits a few hundred px in),
-	# so measure where it really is and place that box, not the origin.
 	var bounds := _get_content_bounds(minigame)
 	var scaled_size := bounds.size * random_scale
 	var screen := get_viewport_rect().size
@@ -65,7 +63,6 @@ func place_minigame(minigame: Node2D) -> void:
 	)
 	minigame.position = top_left - bounds.position * random_scale
 
-# Union of the rects of the minigame's visible Control children, in its local (unscaled) space.
 func _get_content_bounds(minigame: Node2D) -> Rect2:
 	var bounds := Rect2()
 	var first := true
@@ -85,14 +82,14 @@ func _on_minigame_finished(minigame: Node2D) -> void:
 	if remaining == 0:
 		print("All minigames solved: ", results)
 
-# The words from each minigame, in intro order, separated by spaces, e.g. "rocket apple".
+# The words from each minigame, in intro order, e.g. "rocketapple".
 func get_expected_code() -> String:
 	var parts := PackedStringArray()
 	for minigame_name in code_order:
 		parts.append(results.get(minigame_name, ""))
-	return " ".join(parts)
+	return "".join(parts)
 
-# Lowercase and collapse spaces/newlines so "Rocket   apple\n" still matches "rocket apple".
+# Lowercase and collapse spaces/newlines
 func _normalize(text: String) -> String:
 	return " ".join(text.to_lower().replace("\n", " ").split(" ", false))
 
