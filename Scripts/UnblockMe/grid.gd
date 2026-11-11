@@ -35,6 +35,9 @@ var selectedBlock = "" # the selected block's character, empty when nothing is s
 var levelWon = false
 var levelLost = false
 
+# Turned off while this grid sits in a minigame window that isn't the active one.
+var interactive = true
+
 func _ready() -> void:
 	# Read the strings into the grid, collecting the cells of each block.
 	for y in layout.size():
@@ -72,11 +75,18 @@ func _ready() -> void:
 		add_child(block)
 		blockNodes[c] = block
 
-	var lastCell = Vector2(layout[0].length() - 1, layout.size() - 1)
-	camera.position = lastCell * step / 2.0
+	# Inside a minigame window there's no camera, the window positions the grid instead.
+	if camera:
+		camera.position = get_bounds().get_center()
+
+# The area the grid draws over in local pixels, including the border ring.
+func get_bounds() -> Rect2:
+	var step = gridSize + padding
+	var cells = Vector2(layout[0].length() + 2, layout.size() + 2)
+	return Rect2(Vector2.ONE * (-step - gridSize / 2.0), cells * step - Vector2.ONE * padding)
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed and !levelWon and !levelLost:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed and !levelWon and !levelLost and interactive:
 		var cell = Vector2i((make_input_local(event).position / (gridSize + padding)).round())
 		if is_clickable_cell(cell):
 			print("Clicked cell ", cell)

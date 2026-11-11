@@ -31,6 +31,9 @@ var drawingLine = "" # the character of the line being dragged, empty when not d
 var levelWon = false
 var levelLost = false
 
+# Turned off while this grid sits in a minigame window that isn't the active one.
+var interactive = true
+
 func _ready() -> void:
 	# Read the strings into the grid, collecting the cells of each dot.
 	for y in layout.size():
@@ -52,13 +55,22 @@ func _ready() -> void:
 			return
 		colours[c] = colour_for(c)
 
+	# Inside a minigame window there's no camera, the window positions the grid instead.
+	if camera:
+		camera.position = get_bounds().get_center()
+
+# The area the grid draws over, in local pixels.
+func get_bounds() -> Rect2:
 	var step = gridSize + padding
-	var lastCell = Vector2(layout[0].length() - 1, layout.size() - 1)
-	camera.position = lastCell * step / 2.0
+	var cells = Vector2(layout[0].length(), layout.size())
+	return Rect2(Vector2.ONE * -gridSize / 2.0, cells * step - Vector2.ONE * padding)
 
 # Left press on a dot starts a line, dragging extends it, releasing stops. Right click deletes a line.
 func _unhandled_input(event: InputEvent) -> void:
 	if grid.is_empty() or levelWon or levelLost:
+		return
+	# A line already being dragged can still be finished.
+	if not interactive and drawingLine == "":
 		return
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:

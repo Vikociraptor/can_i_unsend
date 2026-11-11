@@ -10,8 +10,9 @@ const HEADER_ACTIVE := preload("res://assets/RetroWindowsGUI/Window_Header.png")
 const HEADER_INACTIVE := preload("res://assets/RetroWindowsGUI/Window_Header_Inactive.png")
 
 @onready var window: NinePatchRect = $Window
-@onready var button: Button = $Button/Button
-@onready var button_holder: Control = $Button
+# Only the placeholder minigames have a Press button.
+@onready var button: Button = get_node_or_null("Button/Button")
+@onready var button_holder: Control = get_node_or_null("Button")
 @onready var result: Label = $Result
 
 var active := false
@@ -66,7 +67,8 @@ func _on_button_pressed() -> void:
 
 func show_result(word: String) -> void:
 	# Swap the button out for the result word in the same spot.
-	button.disabled = true
-	button_holder.hide()
+	if button:
+		button.disabled = true
+		button_holder.hide()
 	result.text = word
 	result.show()

@@ -1,15 +1,12 @@
 [gd_scene format=3 uid="uid://55ds3wfdppjn"]
 
 [ext_resource type="Script" uid="uid://cs1fv7gi2r4kl" path="res://main_game_loop.gd" id="1_v8d43"]
-[ext_resource type="PackedScene" uid="uid://cl5k1ukegm5iq" path="res://minigames/minigame_1.tscn" id="2_h46g1"]
-[ext_resource type="PackedScene" uid="uid://bccty0v2444h" path="res://minigames/minigame_2.tscn" id="3_d1nqu"]
-[ext_resource type="PackedScene" uid="uid://33rtyino8sng" path="res://minigames/minigame_3.tscn" id="4_5n4ns"]
-[ext_resource type="PackedScene" uid="uid://lqsjt40j23nl" path="res://minigames/minigame_4.tscn" id="5_5n4ns"]
-[ext_resource type="PackedScene" uid="uid://dywojcuxeq3t4" path="res://minigames/minigame_5.tscn" id="6_e2yq2"]
+[ext_resource type="PackedScene" path="res://minigames/flow_minigame.tscn" id="7_flow"]
+[ext_resource type="PackedScene" path="res://minigames/unblock_minigame.tscn" id="8_unblock"]
 
 [node name="MainGameLoop" type="Node2D" unique_id=682557079]
 script = ExtResource("1_v8d43")
-all_minigames = Array[PackedScene]([ExtResource("2_h46g1"), ExtResource("3_d1nqu"), ExtResource("4_5n4ns"), ExtResource("5_5n4ns"), ExtResource("6_e2yq2")])
+all_minigames = Array[PackedScene]([ExtResource("7_flow"), ExtResource("8_unblock")])
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=672813929]
 
