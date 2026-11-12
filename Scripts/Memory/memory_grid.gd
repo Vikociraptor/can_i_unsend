@@ -17,6 +17,7 @@ var grid = []
 var cards = {}
 
 var matches = []
+var allCharacters = []
 
 var firstSelectedCard = ""
 var firstSelectedCardCell := Vector2i(-1, -1)
@@ -32,6 +33,8 @@ func _ready() -> void:
 		for x in layout[y].length():
 			var c = layout[y][x]
 			row.append(c)
+			if not allCharacters.has(c):
+				allCharacters.append(c)
 			if not cards.has(c):
 				cards[c] = []
 			cards[c].append(Vector2i(x, y))
@@ -68,6 +71,16 @@ func _unhandled_input(event: InputEvent) -> void:
 				matches.append(firstSelectedCard)
 				firstSelectedCard = ""
 				firstSelectedCardCell = Vector2i(-1, -1)
+
+				var w = true
+
+				for c in allCharacters:
+					if not matches.has(c):
+						w = false
+				
+				levelWon = w
+
+
 			else:
 				print("Not a match!!")
 				firstSelectedCard = ""
