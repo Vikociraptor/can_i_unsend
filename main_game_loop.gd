@@ -10,6 +10,8 @@ extends Node2D
 @export var timer := 20.0;
 @export var timerLabel: Label
 
+var timerCount = true
+
 signal code_correct
 signal code_wrong
 
@@ -50,16 +52,17 @@ func _ready() -> void:
 		place_minigame(minigame)
 		
 func _process(delta: float) -> void:
-	if timer > 5.0:
-		timerLabel.text = str(int(floor(timer)))
-	else:
-		timerLabel.text = str(max(0.0, timer))
-	if timer > 0.0:
-		timer -= delta
-	else:
-		for minigame in placed_minigames:
-			if is_instance_valid(minigame):
-				minigame.game.levelLost = true
+	if timerCount:
+		if timer > 5.0:
+			timerLabel.text = str(int(floor(timer)))
+		else:
+			timerLabel.text = str(max(0.0, timer))
+		if timer > 0.0:
+			timer -= delta
+		else:
+			for minigame in placed_minigames:
+				if is_instance_valid(minigame):
+					minigame.game.levelLost = true
 	
 func place_minigame(minigame: Node2D) -> void:
 	minigame.finished.connect(_on_minigame_finished.bind(minigame), CONNECT_ONE_SHOT)
@@ -115,9 +118,12 @@ func _on_minigame_finished(minigame: Node2D) -> void:
 	results[minigame.display_name] = word
 	minigame.show_result(word)
 
+	timer += 5.0
+
 	remaining -= 1
 	if remaining == 0:
 		print("All minigames solved: ", results)
+		timerCount = false
 
 # The words from each minigame, in intro order, e.g. "rocketapple".
 func get_expected_code() -> String:
