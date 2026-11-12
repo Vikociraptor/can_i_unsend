@@ -56,6 +56,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed and !levelWon and !levelLost and interactive:
 		var cell = Vector2i((make_input_local(event).position / (gridSize + padding)).round())
 		if is_clickable_cell(cell):
+			queue_redraw()
 			if matches.has(grid[cell.y][cell.x]):
 				return
 			print("Clicked cell ", grid[cell.y][cell.x])
@@ -91,4 +92,6 @@ func _draw() -> void:
 
 	for c in cards:
 		for cell in cards[c]:
-			draw_circle(Vector2(cell) * step, 25, colour_for(c))
+			print(grid[cell.y][cell.x])
+			if matches.has(grid[cell.y][cell.x]) or cell == firstSelectedCardCell:
+				draw_circle(Vector2(cell) * step, 25, colour_for(c))
