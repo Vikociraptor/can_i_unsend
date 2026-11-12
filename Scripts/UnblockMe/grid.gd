@@ -20,6 +20,16 @@ const blockSceneSize = 40.0 # width and height of block.tscn before scaling
 	"eeev.",
 ]
 
+var layouts = [
+	[
+		"kkaab",
+		"c..vb",
+		"c**v.",
+		"...v.",
+		"eeev.",
+	]
+]
+
 var grid = [] # characters, read as grid[y][x]
 
 var exit = [-1, 2] # We define the exit here, where one of the values should be outside the grid.
@@ -39,6 +49,9 @@ var levelLost = false
 var interactive = true
 
 func _ready() -> void:
+
+	layout = layouts[randi_range(0, layouts.size())]
+
 	# Read the strings into the grid, collecting the cells of each block.
 	for y in layout.size():
 		var row = []
