@@ -17,6 +17,8 @@ signal code_wrong
 
 @onready var intro_label : Label = $CanvasLayer/CenterContainer/VBoxContainer/IntroLabel
 @onready var code_input : LineEdit = $CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer/LineEdit
+@export  var input_container : Container
+
 
 var remaining := 0
 var available_words: Array[String] = []
@@ -31,6 +33,8 @@ func _ready() -> void:
 	selected.shuffle()
 	selected.resize(minigame_count)
 	remaining = selected.size()
+
+	input_container.hide()
 	
 	var minigames: Array[Node2D] = []
 	var names: Array[String] = []
@@ -123,6 +127,7 @@ func _on_minigame_finished(minigame: Node2D) -> void:
 	remaining -= 1
 	if remaining == 0:
 		print("All minigames solved: ", results)
+		input_container.show()
 		timerCount = false
 
 # The words from each minigame, in intro order, e.g. "rocketapple".
