@@ -7,10 +7,11 @@ const padding = 5
 
 @export var camera: Camera2D
 
-@export var layout: PackedStringArray = [
-	"abcd",
-	"dcba"
-]
+@export var pairs := 4
+
+var layout = []
+
+var possibleChar := "abcdefghijklmnopqrstuvwxyz"
 
 var grid = []
 
@@ -28,9 +29,13 @@ var levelLost = false
 var interactive = true
 
 func _ready() -> void:
+	pairs = clamp(pairs, 1, possibleChar.length())
+
+	create_layout()
+
 	for y in layout.size():
 		var row = []
-		for x in layout[y].length():
+		for x in layout[y].size():
 			var c = layout[y][x]
 			row.append(c)
 			if not allCharacters.has(c):
@@ -39,20 +44,32 @@ func _ready() -> void:
 				cards[c] = []
 			cards[c].append(Vector2i(x, y))
 		grid.append(row)
-
-	
-	for c in cards:
-		if cards[c].size() > 2:
-			push_error("Invalid block '%s' in layout" % c)
-			grid = []
-			return
 	
 	if camera:
 		camera.position = get_bounds().get_center()
 
+func create_layout() -> void:
+	var availChar = possibleChar.substr(0, pairs)
+	var usedChars = []
+	for i in 2:
+		var row = []
+		for j in pairs:
+			var hasPlaced = false
+			
+			while not hasPlaced:
+				var c = availChar[randi_range(0, pairs - 1)]
+				if not usedChars.has(c) or usedChars.count(c) < 2:
+					usedChars.append(c)
+					row.append(c)
+					hasPlaced = true
+		layout.append(row)
+	print(layout)
+
+	
+
 func get_bounds() -> Rect2:
 	var step = gridSize + padding
-	var cells = Vector2(layout[0].length(), layout.size())
+	var cells = Vector2(layout[0].size(), layout.size())
 	return Rect2(Vector2.ONE * -gridSize / 2.0, cells * step - Vector2.ONE * padding)
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -87,7 +104,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				firstSelectedCardCell = Vector2i(-1, -1)
 
 func is_clickable_cell(cell: Vector2i) -> bool:
-	var insideGrid = cell.x >= 0 and cell.y >= 0 and cell.x < layout[0].length() and cell.y < layout.size()
+	var insideGrid = cell.x >= 0 and cell.y >= 0 and cell.x < layout[0].size() and cell.y < layout.size()
 	return insideGrid
 	
 func colour_for(c: String) -> Color:
@@ -99,7 +116,7 @@ func _draw() -> void:
 	var cellVector = Vector2.ONE * gridSize
 
 	for y in layout.size():
-		for x in layout[y].length():
+		for x in layout[y].size():
 			var center = Vector2(x, y) * step
 			draw_rect(Rect2(center - cellVector / 2.0, cellVector), Color.DIM_GRAY)
 
