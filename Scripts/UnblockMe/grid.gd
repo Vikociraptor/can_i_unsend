@@ -27,6 +27,13 @@ var layouts = [
 		"c**v.",
 		"...v.",
 		"eeev.",
+	],
+	[
+		"daaab",
+		"d...b",
+		"c**.b",
+		"c...b",
+		"eeee."
 	]
 ]
 
