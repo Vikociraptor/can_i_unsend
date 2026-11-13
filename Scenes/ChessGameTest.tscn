@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://xql5kvqcrbui"]
+
+[ext_resource type="Script" uid="uid://c8si5oex56jm5" path="res://Scripts/Chess/chess_grid.gd" id="1_lmdgw"]
+
+[node name="FlowGameTest" type="Node2D" unique_id=1898624422]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1203948571]
+
+[node name="Grid" type="Node2D" parent="." unique_id=874512036]
+script = ExtResource("1_lmdgw")

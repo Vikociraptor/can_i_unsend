@@ -11,11 +11,15 @@ extends Node2D
 @export var timer := 21.0;
 @export var timerLabel: Label
 
+var timerCount = true
+
 signal code_correct
 signal code_wrong
 
 @onready var intro_label : Label = $CanvasLayer/CenterContainer/VBoxContainer/IntroLabel
 @onready var code_input : LineEdit = $CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer/LineEdit
+@export  var input_container : Container
+
 
 var remaining := 0
 var available_words: Array[String] = []
@@ -30,6 +34,8 @@ func _ready() -> void:
 	selected.shuffle()
 	selected.resize(minigame_count)
 	remaining = selected.size()
+
+	input_container.hide()
 	
 	var minigames: Array[Node2D] = []
 	var names: Array[String] = []
@@ -51,16 +57,17 @@ func _ready() -> void:
 		place_minigame(minigame)
 		
 func _process(delta: float) -> void:
-	if timer > 5.0:
-		timerLabel.text = str(int(floor(timer)))
-	else:
-		timerLabel.text = str(max(0.0, timer))
-	if timer > 0.0:
-		timer -= delta
-	else:
-		for minigame in placed_minigames:
-			if is_instance_valid(minigame):
-				minigame.game.levelLost = true
+	if timerCount:
+		if timer > 5.0:
+			timerLabel.text = str(int(floor(timer)))
+		else:
+			timerLabel.text = str(max(0.0, timer))
+		if timer > 0.0:
+			timer -= delta
+		else:
+			for minigame in placed_minigames:
+				if is_instance_valid(minigame):
+					minigame.game.levelLost = true
 	
 func place_minigame(minigame: Node2D) -> void:
 	minigame.finished.connect(_on_minigame_finished.bind(minigame), CONNECT_ONE_SHOT)
@@ -112,9 +119,13 @@ func _on_minigame_finished(minigame: Node2D) -> void:
 	results[minigame.display_name] = word
 	minigame.show_result(word)
 
+	timer += 5.0
+
 	remaining -= 1
 	if remaining == 0:
 		print("All minigames solved: ", results)
+		input_container.show()
+		timerCount = false
 
 # The words from each minigame, in intro order, e.g. "rocketapple".
 func get_expected_code() -> String:

@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://dco38uicoofeu"]
+
+[ext_resource type="Script" uid="uid://1dbh0a0gj8ll" path="res://Scripts/Memory/memory_grid.gd" id="1_r5k47"]
+
+[node name="MemoryGameTest" type="Node2D" unique_id=134496084]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1266490017]
+
+[node name="grid" type="Node2D" parent="." unique_id=1460516137 node_paths=PackedStringArray("camera")]
+script = ExtResource("1_r5k47")
+camera = NodePath("../Camera2D")

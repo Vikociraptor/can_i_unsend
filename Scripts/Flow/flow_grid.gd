@@ -18,6 +18,23 @@ const lineWidth = gridSize * 0.3
 	"a....",
 ]
 
+var layouts = [
+	[
+		"a...b",
+		"..c..",
+		".....",
+		"c...b",
+		"a....",
+	],
+	[
+		"a.b.a",
+		".....",
+		".b.c.",
+		"..c..",
+		".....",
+	]
+]
+
 var grid = [] # characters, read as grid[y][x]
 
 var dots = {} # each pair's two cells, keyed by its character
@@ -36,6 +53,7 @@ var interactive = true
 
 func _ready() -> void:
 	# Read the strings into the grid, collecting the cells of each dot.
+	layout = layouts[randi_range(0, layouts.size() - 1)]
 	for y in layout.size():
 		var row = []
 		for x in layout[y].length():

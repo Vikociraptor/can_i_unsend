@@ -1,11 +1,11 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://cetvhssiiotvk"]
 
-[ext_resource type="Script" path="res://minigames/puzzle_minigame.gd" id="1_3jprq"]
-[ext_resource type="Script" uid="uid://crqdnptf5rq8v" path="res://Scripts/Flow/flow_grid.gd" id="6_grid"]
+[ext_resource type="Script" uid="uid://ctqyg4130u6cg" path="res://minigames/puzzle_minigame.gd" id="1_3jprq"]
 [ext_resource type="Texture2D" uid="uid://3iyye5wcyugm" path="res://assets/RetroWindowsGUI/Window_Header.png" id="2_hhwsc"]
 [ext_resource type="Texture2D" uid="uid://7u4tja0fyhpm" path="res://assets/RetroWindowsGUI/Windows_Button.png" id="3_p0bon"]
 [ext_resource type="Texture2D" uid="uid://ko1w1ywfysu2" path="res://assets/RetroWindowsGUI/Windows_Button_Pressed.png" id="4_q6hqq"]
 [ext_resource type="Texture2D" uid="uid://cuki5h7pvmqyq" path="res://assets/RetroWindowsGUI/Windows_Icons.png" id="5_jbnu7"]
+[ext_resource type="Script" uid="uid://crqdnptf5rq8v" path="res://Scripts/Flow/flow_grid.gd" id="6_grid"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0v6pm"]
 texture = ExtResource("3_p0bon")
@@ -47,8 +47,8 @@ size = Vector2(496.5, 55)
 
 [node name="FlowMinigame" type="Node2D" unique_id=553078582 node_paths=PackedStringArray("game")]
 script = ExtResource("1_3jprq")
-display_name = "Flow"
 game = NodePath("Grid")
+display_name = "Flow"
 
 [node name="Window" type="NinePatchRect" parent="." unique_id=1527480438]
 custom_minimum_size = Vector2(400, 300)
@@ -110,15 +110,15 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_cfbnv")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_tpg87")
 icon = SubResource("AtlasTexture_ymfxl")
 
-[node name="GameArea" type="Control" parent="Window"]
-layout_mode = 0
+[node name="GameArea" type="Control" parent="Window" unique_id=411689752]
+anchors_preset = 0
 offset_left = 12.0
 offset_top = 56.0
 offset_right = 572.0
 offset_bottom = 384.0
 mouse_filter = 2
 
-[node name="Grid" type="Node2D" parent="."]
+[node name="Grid" type="Node2D" parent="." unique_id=1288167561]
 script = ExtResource("6_grid")
 
 [node name="Result" type="Label" parent="." unique_id=1376386682]
