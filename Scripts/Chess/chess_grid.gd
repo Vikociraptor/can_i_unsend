@@ -58,9 +58,12 @@ func _unhandled_input(event: InputEvent) -> void:
 					grid[selectedPiece.y][selectedPiece.x] = "."
 					possibleMoves = []
 					selectedPiece = Vector2i(-1, -1)
-				else:
+				elif owner_of(cell) == player:
 					possibleMoves = getPossibleMoves(cell)
 					selectedPiece = cell
+				else:
+					possibleMoves = []
+					selectedPiece = Vector2i(-1, -1)
 			else:
 				if possibleMoves.has(cell) and selectedPiece != Vector2i(-1, -1):
 					var temp = grid[cell.y][cell.x]
