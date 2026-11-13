@@ -20,6 +20,15 @@ enum players {White, Black}
 
 @export var player = players.White
 
+# Every puzzle is a single move by `player`. The goal decides whether that move wins.
+# EscapeCheck: the player starts in check; any move that gets the king out of check wins.
+# GiveCheck: the move must put the opponent's king in check.
+# Checkmate: the move must checkmate the opponent (stalemate counts as a loss).
+# In every mode, a move that leaves the player's own king in check loses.
+enum goals {EscapeCheck, GiveCheck, Checkmate}
+
+@export var goal = goals.GiveCheck
+
 @export var layout = [
 	'.K.',
 	'...',
@@ -52,27 +61,36 @@ func _unhandled_input(event: InputEvent) -> void:
 		var cell = Vector2i((make_input_local(event).position / (gridSize + padding)).round())
 		if is_clickable_cell(cell):
 			queue_redraw()
-			if grid[cell.y][cell.x] != ".":
-				if possibleMoves.has(cell) and selectedPiece != Vector2i(-1, -1):
-					grid[cell.y][cell.x] = grid[selectedPiece.y][selectedPiece.x]
-					grid[selectedPiece.y][selectedPiece.x] = "."
-					possibleMoves = []
-					selectedPiece = Vector2i(-1, -1)
-				elif owner_of(cell) == player:
-					possibleMoves = getPossibleMoves(cell)
-					selectedPiece = cell
-				else:
-					possibleMoves = []
-					selectedPiece = Vector2i(-1, -1)
+			if selectedPiece != Vector2i(-1, -1) and possibleMoves.has(cell):
+				movePiece(selectedPiece, cell)
+				possibleMoves = []
+				selectedPiece = Vector2i(-1, -1)
+				evaluateMove()
+			elif !is_empty(cell) and owner_of(cell) == player:
+				possibleMoves = getPossibleMoves(cell)
+				selectedPiece = cell
 			else:
-				if possibleMoves.has(cell) and selectedPiece != Vector2i(-1, -1):
-					var temp = grid[cell.y][cell.x]
-					grid[cell.y][cell.x] = grid[selectedPiece.y][selectedPiece.x]
-					grid[selectedPiece.y][selectedPiece.x] = temp
 				possibleMoves = []
 				selectedPiece = Vector2i(-1, -1)
 
-			
+func movePiece(from: Vector2i, to: Vector2i) -> void:
+	grid[to.y][to.x] = grid[from.y][from.x]
+	grid[from.y][from.x] = "."
+
+# Called after the player's one move. Decides whether the puzzle was solved.
+func evaluateMove() -> void:
+	if is_in_check(player):
+		levelLost = true
+		return
+	var enemy = opponent_of(player)
+	match goal:
+		goals.EscapeCheck:
+			levelWon = true
+		goals.GiveCheck:
+			levelWon = is_in_check(enemy)
+		goals.Checkmate:
+			levelWon = is_checkmate(enemy)
+	levelLost = !levelWon
 
 # Move generation. Each function returns the cells the piece at `pos` can move to,
 # including captures of the opposing side. The side is worked out from the piece itself
@@ -171,6 +189,72 @@ func getPossibleMoves(pos: Vector2i) -> Array[Vector2i]:
 			moves.append_array(getHorizontalMoves(pos, 1))
 			moves.append_array(getDiagonalMoves(pos, 1))
 	return moves
+
+# --- Check and checkmate ---
+
+func opponent_of(side: players) -> players:
+	return players.Black if side == players.White else players.White
+
+func find_king(side: players) -> Vector2i:
+	for y in grid.size():
+		for x in grid[y].size():
+			var cell = Vector2i(x, y)
+			if !is_empty(cell) and grid[y][x].to_lower() == "k" and owner_of(cell) == side:
+				return cell
+	return Vector2i(-1, -1)
+
+# True if any piece belonging to bySide could capture on `target`.
+func is_square_attacked(target: Vector2i, bySide: players) -> bool:
+	for y in grid.size():
+		for x in grid[y].size():
+			var cell = Vector2i(x, y)
+			if is_empty(cell) or owner_of(cell) != bySide:
+				continue
+			if grid[y][x].to_lower() == "p":
+				# Pawns only attack their forward diagonals, never straight ahead.
+				var forward = Vector2i.UP if bySide == players.White else Vector2i.DOWN
+				if target == cell + forward + Vector2i.LEFT or target == cell + forward + Vector2i.RIGHT:
+					return true
+			elif getPossibleMoves(cell).has(target):
+				return true
+	return false
+
+func is_in_check(side: players) -> bool:
+	var king = find_king(side)
+	if king == Vector2i(-1, -1):
+		return false
+	return is_square_attacked(king, opponent_of(side))
+
+# Tries the move on the grid, checks whether it leaves the mover's king in check, then undoes it.
+func is_legal_move(from: Vector2i, to: Vector2i) -> bool:
+	var side = owner_of(from)
+	var captured = grid[to.y][to.x]
+	movePiece(from, to)
+	var legal = !is_in_check(side)
+	grid[from.y][from.x] = grid[to.y][to.x]
+	grid[to.y][to.x] = captured
+	return legal
+
+func getLegalMoves(pos: Vector2i) -> Array[Vector2i]:
+	var moves: Array[Vector2i] = []
+	for move in getPossibleMoves(pos):
+		if is_legal_move(pos, move):
+			moves.append(move)
+	return moves
+
+func has_any_legal_move(side: players) -> bool:
+	for y in grid.size():
+		for x in grid[y].size():
+			var cell = Vector2i(x, y)
+			if !is_empty(cell) and owner_of(cell) == side and !getLegalMoves(cell).is_empty():
+				return true
+	return false
+
+func is_checkmate(side: players) -> bool:
+	return is_in_check(side) and !has_any_legal_move(side)
+
+func is_stalemate(side: players) -> bool:
+	return !is_in_check(side) and !has_any_legal_move(side)
 
 func colour_for(c: String) -> Color:
 	var hue = fmod(c.unicode_at(0) * 0.618034, 1.0)
