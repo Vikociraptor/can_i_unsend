@@ -91,6 +91,10 @@ func evaluateMove() -> void:
 		goals.Checkmate:
 			levelWon = is_checkmate(enemy)
 	levelLost = !levelWon
+	if levelWon:
+		print("You win bitch!")
+	elif levelLost:
+		print("You need to work, read a book chump!")
 
 # Move generation. Each function returns the cells the piece at `pos` can move to,
 # including captures of the opposing side. The side is worked out from the piece itself
@@ -259,6 +263,11 @@ func is_stalemate(side: players) -> bool:
 func colour_for(c: String) -> Color:
 	var hue = fmod(c.unicode_at(0) * 0.618034, 1.0)
 	return Color.from_hsv(hue, 0.8, 0.95)
+
+func get_bounds() -> Rect2:
+	var step = gridSize + padding
+	var cells = Vector2(layout[0].length(), layout.size())
+	return Rect2(Vector2.ONE * -gridSize / 2.0, cells * step - Vector2.ONE * padding)
 
 func _draw() -> void:
 	var step = gridSize + padding
