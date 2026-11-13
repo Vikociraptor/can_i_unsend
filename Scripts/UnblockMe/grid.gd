@@ -57,7 +57,7 @@ var interactive = true
 
 func _ready() -> void:
 
-	layout = layouts[randi_range(0, layouts.size())]
+	layout = layouts[randi_range(0, layouts.size() - 1)]
 
 	# Read the strings into the grid, collecting the cells of each block.
 	for y in layout.size():
