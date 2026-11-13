@@ -9,7 +9,6 @@
 [node name="MainGameLoop" type="Node2D" unique_id=682557079 node_paths=PackedStringArray("timerLabel", "input_container")]
 script = ExtResource("1_v8d43")
 all_minigames = Array[PackedScene]([ExtResource("7_flow"), ExtResource("8_unblock"), ExtResource("4_h46g1"), ExtResource("5_d1nqu")])
-spawn_positions = Array[Vector2]([Vector2(40, 200), Vector2(760, 200), Vector2(360, 330)])
 timerLabel = NodePath("CanvasLayer/Timer")
 input_container = NodePath("CanvasLayer/CenterContainer")
 
