@@ -34,6 +34,8 @@ var interactive = true
 
 var grid = []
 
+var selectedPiece := Vector2i(-1, -1)
+
 func _ready() -> void:
 	for i in layout.size():
 		var row = []
@@ -51,9 +53,21 @@ func _unhandled_input(event: InputEvent) -> void:
 		if is_clickable_cell(cell):
 			queue_redraw()
 			if grid[cell.y][cell.x] != ".":
-				possibleMoves = getPossibleMoves(cell)
+				if possibleMoves.has(cell) and selectedPiece != Vector2i(-1, -1):
+					grid[cell.y][cell.x] = grid[selectedPiece.y][selectedPiece.x]
+					grid[selectedPiece.y][selectedPiece.x] = "."
+					possibleMoves = []
+					selectedPiece = Vector2i(-1, -1)
+				else:
+					possibleMoves = getPossibleMoves(cell)
+					selectedPiece = cell
 			else:
+				if possibleMoves.has(cell) and selectedPiece != Vector2i(-1, -1):
+					var temp = grid[cell.y][cell.x]
+					grid[cell.y][cell.x] = grid[selectedPiece.y][selectedPiece.x]
+					grid[selectedPiece.y][selectedPiece.x] = temp
 				possibleMoves = []
+				selectedPiece = Vector2i(-1, -1)
 
 			
 
