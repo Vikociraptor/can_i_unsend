@@ -5,10 +5,11 @@
 [ext_resource type="PackedScene" uid="uid://jmh44r4qvtyd" path="res://minigames/chess_minigame.tscn" id="5_d1nqu"]
 [ext_resource type="PackedScene" uid="uid://cetvhssiiotvk" path="res://minigames/flow_minigame.tscn" id="7_flow"]
 [ext_resource type="PackedScene" path="res://minigames/unblock_minigame.tscn" id="8_unblock"]
+[ext_resource type="PackedScene" path="res://minigames/password_minigame.tscn" id="9_password"]
 
 [node name="MainGameLoop" type="Node2D" unique_id=682557079 node_paths=PackedStringArray("timerLabel", "input_container")]
 script = ExtResource("1_v8d43")
-all_minigames = Array[PackedScene]([ExtResource("7_flow"), ExtResource("8_unblock"), ExtResource("4_h46g1"), ExtResource("5_d1nqu")])
+all_minigames = Array[PackedScene]([ExtResource("7_flow"), ExtResource("8_unblock"), ExtResource("4_h46g1"), ExtResource("5_d1nqu"), ExtResource("9_password")])
 timerLabel = NodePath("CanvasLayer/Timer")
 input_container = NodePath("CanvasLayer/CenterContainer")
 
