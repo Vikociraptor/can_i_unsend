@@ -119,7 +119,7 @@ func _on_minigame_finished(minigame: Node2D) -> void:
 	results[minigame.display_name] = word
 	minigame.show_result(word)
 
-	timer += 5.0
+	# timer += 5.0
 
 	remaining -= 1
 	if remaining == 0:
