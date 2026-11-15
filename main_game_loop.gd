@@ -5,7 +5,7 @@ extends Node2D
 	Vector2(40, 40), Vector2(600, 40), Vector2(40, 330), Vector2(600, 330)
 ]
 @export var minigame_scale := 0.6
-@export var intro_duration := 1.0
+@export var intro_duration := 1.3
 @export var words: Array[String] = ["apple", "rocket", "banana", "spider", "pickle", "laptop", "cactus", "wizard"]
 @export var timer := 21.0;
 @export var timerLabel: Label
@@ -35,7 +35,7 @@ func _ready() -> void:
 	selected.resize(minigame_count)
 	remaining = selected.size()
 
-	input_container.hide()
+	#input_container.hide()
 	
 	var minigames: Array[Node2D] = []
 	var names: Array[String] = []
@@ -60,6 +60,7 @@ func _process(delta: float) -> void:
 			timerLabel.text = str(int(floor(timer)))
 		else:
 			timerLabel.text = str(max(0.0, timer))
+			timerLabel.add_theme_color_override("font_color", Color.RED)
 		if timer > 0.0:
 			timer -= delta
 		else:
@@ -129,7 +130,7 @@ func _on_minigame_finished(minigame: Node2D) -> void:
 	if remaining == 0:
 		print("All minigames solved: ", results)
 		input_container.show()
-		timerCount = false
+		#timerCount = false
 
 # The words from each minigame, in intro order, e.g. "rocketapple".
 func get_expected_code() -> String:
@@ -150,6 +151,7 @@ func _on_submit_button_pressed() -> void:
 
 	var typed := _normalize(code_input.text)
 	if typed == _normalize(get_expected_code()):
+		timerCount = false
 		print("Correct! Email send stopped.")
 		code_correct.emit()
 	else:
