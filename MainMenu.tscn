@@ -37,13 +37,41 @@ size_flags_vertical = 3
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="Play" type="Label" parent="HBoxContainer/VBoxContainer/VBoxContainer" unique_id=1888398657]
+[node name="Easy" type="Label" parent="HBoxContainer/VBoxContainer/VBoxContainer" unique_id=1888398657]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 32
-text = "Play"
+text = "Piss easy"
 
-[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/VBoxContainer/Play" unique_id=1793623236]
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/VBoxContainer/Easy" unique_id=1793623236]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Medium" type="Label" parent="HBoxContainer/VBoxContainer/VBoxContainer" unique_id=1737439307]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 32
+text = "Tricky"
+
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/VBoxContainer/Medium" unique_id=56286294]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Hard" type="Label" parent="HBoxContainer/VBoxContainer/VBoxContainer" unique_id=1753785787]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 32
+text = "God mode"
+
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/VBoxContainer/Hard" unique_id=625390190]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -130,6 +158,8 @@ layout_mode = 2
 layout_mode = 2
 text = "X"
 
-[connection signal="pressed" from="HBoxContainer/VBoxContainer/VBoxContainer/Play/Button" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/VBoxContainer/Easy/Button" to="." method="_on_easy_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/VBoxContainer/Medium/Button" to="." method="_on_medium_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/VBoxContainer/Hard/Button" to="." method="_on_hard_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/VBoxContainer/Options/Button" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="OptionsPanel/VBoxContainer/Button" to="." method="_on_close_button_pressed"]

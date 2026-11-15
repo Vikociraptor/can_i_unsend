@@ -1,7 +1,6 @@
 extends Node2D
 
 @export var all_minigames: Array[PackedScene] = []
-@export var minigame_count := 2
 @export var spawn_positions: Array[Vector2] = [
 	Vector2(40, 40), Vector2(600, 40), Vector2(40, 330), Vector2(600, 330)
 ]
@@ -28,6 +27,7 @@ var code_order: Array[String] = []
 var placed_minigames: Array[Node2D] = []
 
 func _ready() -> void:
+	var minigame_count = GameSettings.minigame_count
 	available_words = words.duplicate()
 	available_words.shuffle()
 	var selected: Array[PackedScene] = all_minigames.duplicate()
@@ -46,9 +46,7 @@ func _ready() -> void:
 	
 	names.shuffle()
 	code_order = names
-	intro_label.text = "Type the result of %s and %s to stop the email send." % [
-		", ".join(PackedStringArray(names.slice(0, -1))), names[-1]
-	]
+	intro_label.text = "Type the result of %s to stop the email send." % _join_names(names)
 	intro_label.z_index = 10
 	
 	await get_tree().create_timer(intro_duration).timeout
@@ -68,7 +66,13 @@ func _process(delta: float) -> void:
 			for minigame in placed_minigames:
 				if is_instance_valid(minigame):
 					minigame.game.levelLost = true
-	
+
+#Correct wording for label based on number of minigames
+func _join_names(names: Array[String]) -> String:
+	if names.size() == 1:
+		return names[0]
+	return ", ".join(PackedStringArray(names.slice(0, -1))) + " and " + names[-1]
+
 func place_minigame(minigame: Node2D) -> void:
 	minigame.finished.connect(_on_minigame_finished.bind(minigame), CONNECT_ONE_SHOT)
 	add_child(minigame)
