@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://qusoqofohtyg" path="res://main_menu.gd" id="1_h7a2f"]
 [ext_resource type="Texture2D" uid="uid://cpsin6sglkrvh" path="res://assets/title.png" id="1_i26rj"]
 [ext_resource type="Texture2D" uid="uid://i82ux34lj7cf" path="res://assets/menu_img.png" id="2_eiy7p"]
+[ext_resource type="AudioStream" uid="uid://dd5tkkanamp6g" path="res://Audio/Music/Drafting a mistake.ogg" id="4_qoqlk"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_be312"]
 
@@ -157,6 +158,10 @@ layout_mode = 2
 [node name="Button" type="Button" parent="OptionsPanel/VBoxContainer" unique_id=770473495]
 layout_mode = 2
 text = "X"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=404663459]
+stream = ExtResource("4_qoqlk")
+autoplay = true
 
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/VBoxContainer/Easy/Button" to="." method="_on_easy_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/VBoxContainer/Medium/Button" to="." method="_on_medium_pressed"]

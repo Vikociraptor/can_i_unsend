@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cs1fv7gi2r4kl" path="res://main_game_loop.gd" id="1_v8d43"]
 [ext_resource type="PackedScene" uid="uid://bx0elq213kqbx" path="res://minigames/memory_minigame.tscn" id="4_h46g1"]
 [ext_resource type="PackedScene" uid="uid://jmh44r4qvtyd" path="res://minigames/chess_minigame.tscn" id="5_d1nqu"]
+[ext_resource type="AudioStream" uid="uid://2otxc17fvic0" path="res://Audio/Music/Oh shit! Where's unsend!.ogg" id="7_e2yq2"]
 [ext_resource type="PackedScene" uid="uid://cetvhssiiotvk" path="res://minigames/flow_minigame.tscn" id="7_flow"]
 [ext_resource type="PackedScene" path="res://minigames/unblock_minigame.tscn" id="8_unblock"]
 [ext_resource type="PackedScene" path="res://minigames/password_minigame.tscn" id="9_password"]
@@ -52,5 +53,9 @@ offset_right = 40.0
 offset_bottom = 23.0
 text = "20"
 horizontal_alignment = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1019429141]
+stream = ExtResource("7_e2yq2")
+autoplay = true
 
 [connection signal="pressed" from="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer/Button" to="." method="_on_submit_button_pressed"]
