@@ -1,4 +1,4 @@
-extends MarginContainer
+extends Control
 
 func _start_game(mode: String) -> void:
 	GameSettings.minigame_count = GameSettings.MODES[mode]
@@ -14,8 +14,8 @@ func _on_hard_pressed() -> void:
 	_start_game("hard")
 	
 func _on_options_button_pressed() -> void:
-	$OptionsPanel.show()
+	$Margin/OptionsPanel.show()
 
 
 func _on_close_button_pressed() -> void:
-	$OptionsPanel.hide()
+	$Margin/OptionsPanel.hide()

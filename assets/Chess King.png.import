@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7qypqyug2alq"
-path="res://.godot/imported/grab.png-6a0e22540379af1becdfcc4943c67646.ctex"
+uid="uid://cuqhnf4esm13j"
+path="res://.godot/imported/Chess King.png-1b7dfc8e067df9a074c214efe58e11ec.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/cursor/grab.png"
-dest_files=["res://.godot/imported/grab.png-6a0e22540379af1becdfcc4943c67646.ctex"]
+source_file="res://assets/Chess King.png"
+dest_files=["res://.godot/imported/Chess King.png-1b7dfc8e067df9a074c214efe58e11ec.ctex"]
 
 [params]
 

@@ -1,122 +1,209 @@
 [gd_scene format=3 uid="uid://b51456v01gsi4"]
 
 [ext_resource type="Script" uid="uid://qusoqofohtyg" path="res://main_menu.gd" id="1_h7a2f"]
-[ext_resource type="Texture2D" uid="uid://cpsin6sglkrvh" path="res://assets/title.png" id="1_i26rj"]
-[ext_resource type="Texture2D" uid="uid://i82ux34lj7cf" path="res://assets/menu_img.png" id="2_eiy7p"]
+[ext_resource type="Texture2D" uid="uid://bkbh488kmh32f" path="res://assets/Desktop.png" id="2_iwfq2"]
+[ext_resource type="Texture2D" uid="uid://bg60de2tnb5r" path="res://assets/mainmenu/Piss easy.png" id="3_afec1"]
+[ext_resource type="Texture2D" uid="uid://tg2jstxayi0u" path="res://assets/mainmenu/Piss easy Tab Selection.png" id="4_31qfy"]
 [ext_resource type="AudioStream" uid="uid://dd5tkkanamp6g" path="res://Audio/Music/Drafting a mistake.ogg" id="4_qoqlk"]
+[ext_resource type="Texture2D" uid="uid://dqha1h3xju7ve" path="res://assets/mainmenu/Tricky Tab.png" id="5_qie43"]
+[ext_resource type="Texture2D" uid="uid://fhdo7vxifnuh" path="res://assets/mainmenu/Tricky Tab Selection.png" id="6_61cf8"]
+[ext_resource type="Texture2D" uid="uid://dan2b6ut0waf2" path="res://assets/mainmenu/Godmode Tab.png" id="7_rnncn"]
+[ext_resource type="Texture2D" uid="uid://17epnct5r2yi" path="res://assets/mainmenu/Godmode Tab Selection.png" id="8_3fnrj"]
+[ext_resource type="Texture2D" uid="uid://bbt7irln8r7tw" path="res://assets/mainmenu/Options.png" id="9_m04lp"]
+[ext_resource type="Texture2D" uid="uid://dxk4ix5tgwfok" path="res://assets/mainmenu/Options Tab Selection.png" id="10_1thib"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_be312"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_be312"]
+atlas = ExtResource("3_afec1")
+region = Rect2(64, 1408, 912, 336)
 
-[node name="MainMenu" type="MarginContainer" unique_id=1666671046]
+[sub_resource type="AtlasTexture" id="AtlasTexture_0v6pm"]
+atlas = ExtResource("4_31qfy")
+region = Rect2(48, 1408, 944, 336)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_we7e7"]
+atlas = ExtResource("4_31qfy")
+region = Rect2(48, 1408, 944, 336)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cfbnv"]
+atlas = ExtResource("5_qie43")
+region = Rect2(416, 1696, 896, 336)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tpg87"]
+atlas = ExtResource("6_61cf8")
+region = Rect2(416, 1696, 880, 336)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hukyg"]
+atlas = ExtResource("6_61cf8")
+region = Rect2(416, 1696, 896, 336)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1xg1a"]
+atlas = ExtResource("7_rnncn")
+region = Rect2(160, 1936, 1008, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qopau"]
+atlas = ExtResource("8_3fnrj")
+region = Rect2(160, 1936, 1008, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ubbjv"]
+atlas = ExtResource("8_3fnrj")
+region = Rect2(160, 1936, 1008, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_do2r2"]
+atlas = ExtResource("9_m04lp")
+region = Rect2(2464, 1776, 528, 416)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v0lpx"]
+atlas = ExtResource("10_1thib")
+region = Rect2(2480, 1776, 496, 416)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uyrqt"]
+atlas = ExtResource("10_1thib")
+region = Rect2(2480, 1792, 496, 416)
+
+[node name="MainMenu" type="Control" unique_id=693102462]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 120
-theme_override_constants/margin_top = 80
-theme_override_constants/margin_right = 120
-theme_override_constants/margin_bottom = 80
 script = ExtResource("1_h7a2f")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1863602798]
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=1293235743]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Title" type="TextureRect" parent="HBoxContainer/VBoxContainer" unique_id=1562300427]
-custom_minimum_size = Vector2(300, 300)
-layout_mode = 2
-texture = ExtResource("1_i26rj")
-expand_mode = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer" unique_id=276649077]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/separation = 20
-alignment = 1
-
-[node name="Easy" type="Label" parent="HBoxContainer/VBoxContainer/VBoxContainer" unique_id=1888398657]
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_font_sizes/font_size = 32
-text = "Piss easy"
-
-[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/VBoxContainer/Easy" unique_id=1793623236]
+[node name="Background" type="TextureRect" parent="." unique_id=265706762]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_iwfq2")
+expand_mode = 1
+stretch_mode = 5
 
-[node name="Medium" type="Label" parent="HBoxContainer/VBoxContainer/VBoxContainer" unique_id=1737439307]
-layout_mode = 2
-size_flags_horizontal = 0
+[node name="Easy" type="TextureButton" parent="." unique_id=1814345117]
+custom_minimum_size = Vector2(290, 93)
+layout_mode = 0
+offset_left = 129.0
+offset_top = 306.0
+offset_right = 419.0
+offset_bottom = 399.0
+texture_normal = SubResource("AtlasTexture_be312")
+texture_pressed = SubResource("AtlasTexture_0v6pm")
+texture_hover = SubResource("AtlasTexture_we7e7")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Easy" unique_id=808631407]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "Piss Easy"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Medium" type="TextureButton" parent="." unique_id=1638409826]
+custom_minimum_size = Vector2(290, 93)
+layout_mode = 0
+offset_left = 204.0
+offset_top = 399.0
+offset_right = 494.0
+offset_bottom = 492.0
+texture_normal = SubResource("AtlasTexture_cfbnv")
+texture_pressed = SubResource("AtlasTexture_tpg87")
+texture_hover = SubResource("AtlasTexture_hukyg")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Medium" unique_id=504346799]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 32
 text = "Tricky"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/VBoxContainer/Medium" unique_id=56286294]
+[node name="Hard" type="TextureButton" parent="." unique_id=1023440553]
+custom_minimum_size = Vector2(311, 122)
+layout_mode = 0
+offset_left = 119.0
+offset_top = 481.0
+offset_right = 430.0
+offset_bottom = 603.0
+texture_normal = SubResource("AtlasTexture_1xg1a")
+texture_pressed = SubResource("AtlasTexture_qopau")
+texture_hover = SubResource("AtlasTexture_ubbjv")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Hard" unique_id=2000361451]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="Hard" type="Label" parent="HBoxContainer/VBoxContainer/VBoxContainer" unique_id=1753785787]
-layout_mode = 2
-size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 32
-text = "God mode"
+text = "God Mode"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/VBoxContainer/Hard" unique_id=625390190]
+[node name="Options" type="TextureButton" parent="." unique_id=86746076]
+custom_minimum_size = Vector2(200, 150)
+layout_mode = 0
+offset_left = 702.0
+offset_top = 443.0
+offset_right = 902.0
+offset_bottom = 593.0
+size_flags_horizontal = 0
+texture_normal = SubResource("AtlasTexture_do2r2")
+texture_pressed = SubResource("AtlasTexture_v0lpx")
+texture_hover = SubResource("AtlasTexture_uyrqt")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Options" unique_id=263176594]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="Options" type="Label" parent="HBoxContainer/VBoxContainer/VBoxContainer" unique_id=1472856704]
-layout_mode = 2
-size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 32
 text = "Options"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/VBoxContainer/Options" unique_id=824710926]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer" unique_id=2124586751]
+[node name="Label" type="Label" parent="." unique_id=2124586751]
 custom_minimum_size = Vector2(0, 150)
-layout_mode = 2
+layout_mode = 0
+offset_left = 120.0
+offset_top = 523.0
+offset_right = 574.0
+offset_bottom = 673.0
 text = "Developers: Vika Gelbak, Ethan Hellyer
 Art: Sarah Sun
 Music: Harrison Gatt"
 vertical_alignment = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer" unique_id=337335908]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxEmpty_be312")
-
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/PanelContainer" unique_id=665687510]
-layout_mode = 2
-texture = ExtResource("2_eiy7p")
-expand_mode = 1
-stretch_mode = 5
-
 [node name="OptionsPanel" type="PanelContainer" parent="." unique_id=1002923669]
 visible = false
 custom_maximum_size = Vector2(300, 400)
-layout_mode = 2
+layout_mode = 0
+offset_right = 123.0
+offset_bottom = 142.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="OptionsPanel" unique_id=1912433695]
 layout_mode = 2
@@ -163,8 +250,8 @@ text = "X"
 stream = ExtResource("4_qoqlk")
 autoplay = true
 
-[connection signal="pressed" from="HBoxContainer/VBoxContainer/VBoxContainer/Easy/Button" to="." method="_on_easy_pressed"]
-[connection signal="pressed" from="HBoxContainer/VBoxContainer/VBoxContainer/Medium/Button" to="." method="_on_medium_pressed"]
-[connection signal="pressed" from="HBoxContainer/VBoxContainer/VBoxContainer/Hard/Button" to="." method="_on_hard_pressed"]
-[connection signal="pressed" from="HBoxContainer/VBoxContainer/VBoxContainer/Options/Button" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="Easy" to="." method="_on_easy_pressed"]
+[connection signal="pressed" from="Medium" to="." method="_on_medium_pressed"]
+[connection signal="pressed" from="Hard" to="." method="_on_hard_pressed"]
+[connection signal="pressed" from="Options" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="OptionsPanel/VBoxContainer/Button" to="." method="_on_close_button_pressed"]

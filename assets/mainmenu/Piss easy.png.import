@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm47kpetowcsd"
-path="res://.godot/imported/grab_hover.png-5a3ba5e713a8d6b9857994050c728f44.ctex"
+uid="uid://bg60de2tnb5r"
+path="res://.godot/imported/Piss easy.png-6aae942c3384aa6360b12b6f2c14b0d5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/cursor/grab_hover.png"
-dest_files=["res://.godot/imported/grab_hover.png-5a3ba5e713a8d6b9857994050c728f44.ctex"]
+source_file="res://assets/mainmenu/Piss easy.png"
+dest_files=["res://.godot/imported/Piss easy.png-6aae942c3384aa6360b12b6f2c14b0d5.ctex"]
 
 [params]
 
