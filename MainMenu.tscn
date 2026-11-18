@@ -2,15 +2,30 @@
 
 [ext_resource type="Script" uid="uid://qusoqofohtyg" path="res://main_menu.gd" id="1_h7a2f"]
 [ext_resource type="Texture2D" uid="uid://bkbh488kmh32f" path="res://assets/Desktop.png" id="2_iwfq2"]
+[ext_resource type="Texture2D" uid="uid://cuwyrnm1ic2g6" path="res://assets/Can tab.png" id="3_61cf8"]
 [ext_resource type="Texture2D" uid="uid://bg60de2tnb5r" path="res://assets/mainmenu/Piss easy.png" id="3_afec1"]
 [ext_resource type="Texture2D" uid="uid://tg2jstxayi0u" path="res://assets/mainmenu/Piss easy Tab Selection.png" id="4_31qfy"]
 [ext_resource type="AudioStream" uid="uid://dd5tkkanamp6g" path="res://Audio/Music/Drafting a mistake.ogg" id="4_qoqlk"]
+[ext_resource type="Texture2D" uid="uid://v3w5usm1qgcc" path="res://assets/I Tab.png" id="4_rnncn"]
 [ext_resource type="Texture2D" uid="uid://dqha1h3xju7ve" path="res://assets/mainmenu/Tricky Tab.png" id="5_qie43"]
 [ext_resource type="Texture2D" uid="uid://fhdo7vxifnuh" path="res://assets/mainmenu/Tricky Tab Selection.png" id="6_61cf8"]
 [ext_resource type="Texture2D" uid="uid://dan2b6ut0waf2" path="res://assets/mainmenu/Godmode Tab.png" id="7_rnncn"]
 [ext_resource type="Texture2D" uid="uid://17epnct5r2yi" path="res://assets/mainmenu/Godmode Tab Selection.png" id="8_3fnrj"]
 [ext_resource type="Texture2D" uid="uid://bbt7irln8r7tw" path="res://assets/mainmenu/Options.png" id="9_m04lp"]
 [ext_resource type="Texture2D" uid="uid://dxk4ix5tgwfok" path="res://assets/mainmenu/Options Tab Selection.png" id="10_1thib"]
+[ext_resource type="Texture2D" uid="uid://cwh1bd70qor30" path="res://assets/Unsend Tab.png" id="11_31qfy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a2hi0"]
+atlas = ExtResource("3_61cf8")
+region = Rect2(32, 752, 640, 528)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dtokf"]
+atlas = ExtResource("4_rnncn")
+region = Rect2(576, 928, 544, 496)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v66i4"]
+atlas = ExtResource("11_31qfy")
+region = Rect2(1152, 800, 1504, 768)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_be312"]
 atlas = ExtResource("3_afec1")
@@ -18,11 +33,11 @@ region = Rect2(64, 1408, 912, 336)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0v6pm"]
 atlas = ExtResource("4_31qfy")
-region = Rect2(48, 1408, 944, 336)
+region = Rect2(48, 1424, 944, 336)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_we7e7"]
 atlas = ExtResource("4_31qfy")
-region = Rect2(48, 1408, 944, 336)
+region = Rect2(48, 1424, 944, 336)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cfbnv"]
 atlas = ExtResource("5_qie43")
@@ -30,11 +45,11 @@ region = Rect2(416, 1696, 896, 336)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tpg87"]
 atlas = ExtResource("6_61cf8")
-region = Rect2(416, 1696, 880, 336)
+region = Rect2(416, 1712, 880, 336)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hukyg"]
 atlas = ExtResource("6_61cf8")
-region = Rect2(416, 1696, 896, 336)
+region = Rect2(416, 1712, 896, 336)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1xg1a"]
 atlas = ExtResource("7_rnncn")
@@ -42,11 +57,11 @@ region = Rect2(160, 1936, 1008, 384)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qopau"]
 atlas = ExtResource("8_3fnrj")
-region = Rect2(160, 1936, 1008, 384)
+region = Rect2(160, 1952, 1008, 384)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ubbjv"]
 atlas = ExtResource("8_3fnrj")
-region = Rect2(160, 1936, 1008, 384)
+region = Rect2(160, 1952, 1008, 384)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_do2r2"]
 atlas = ExtResource("9_m04lp")
@@ -59,6 +74,10 @@ region = Rect2(2480, 1776, 496, 416)
 [sub_resource type="AtlasTexture" id="AtlasTexture_uyrqt"]
 atlas = ExtResource("10_1thib")
 region = Rect2(2480, 1792, 496, 416)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hb0un"]
+atlas = ExtResource("11_31qfy")
+region = Rect2(1168, 800, 1472, 768)
 
 [node name="MainMenu" type="Control" unique_id=693102462]
 layout_mode = 3
@@ -81,13 +100,85 @@ texture = ExtResource("2_iwfq2")
 expand_mode = 1
 stretch_mode = 5
 
+[node name="Title1" type="TextureRect" parent="." unique_id=918461153]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 0
+offset_left = 149.0
+offset_top = 128.0
+offset_right = 299.0
+offset_bottom = 278.0
+texture = SubResource("AtlasTexture_a2hi0")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Title1" unique_id=1365634927]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 56
+text = "Can"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Title2" type="TextureRect" parent="." unique_id=623858321]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 0
+offset_left = 265.0
+offset_top = 189.0
+offset_right = 385.0
+offset_bottom = 309.0
+texture = SubResource("AtlasTexture_dtokf")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Title2" unique_id=1951059290]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 48
+text = "I"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Title3" type="TextureRect" parent="." unique_id=558470480]
+custom_minimum_size = Vector2(300, 150)
+layout_mode = 0
+offset_left = 354.0
+offset_top = 103.0
+offset_right = 654.0
+offset_bottom = 253.0
+texture = SubResource("AtlasTexture_v66i4")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Title3" unique_id=12271711]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 49
+text = "Unsend??"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Easy" type="TextureButton" parent="." unique_id=1814345117]
 custom_minimum_size = Vector2(290, 93)
 layout_mode = 0
-offset_left = 129.0
-offset_top = 306.0
-offset_right = 419.0
-offset_bottom = 399.0
+offset_left = 106.0
+offset_top = 364.0
+offset_right = 396.0
+offset_bottom = 457.0
 texture_normal = SubResource("AtlasTexture_be312")
 texture_pressed = SubResource("AtlasTexture_0v6pm")
 texture_hover = SubResource("AtlasTexture_we7e7")
@@ -110,10 +201,10 @@ vertical_alignment = 1
 [node name="Medium" type="TextureButton" parent="." unique_id=1638409826]
 custom_minimum_size = Vector2(290, 93)
 layout_mode = 0
-offset_left = 204.0
-offset_top = 399.0
-offset_right = 494.0
-offset_bottom = 492.0
+offset_left = 269.0
+offset_top = 420.0
+offset_right = 559.0
+offset_bottom = 513.0
 texture_normal = SubResource("AtlasTexture_cfbnv")
 texture_pressed = SubResource("AtlasTexture_tpg87")
 texture_hover = SubResource("AtlasTexture_hukyg")
@@ -136,10 +227,10 @@ vertical_alignment = 1
 [node name="Hard" type="TextureButton" parent="." unique_id=1023440553]
 custom_minimum_size = Vector2(311, 122)
 layout_mode = 0
-offset_left = 119.0
-offset_top = 481.0
-offset_right = 430.0
-offset_bottom = 603.0
+offset_left = 165.0
+offset_top = 471.0
+offset_right = 476.0
+offset_bottom = 593.0
 texture_normal = SubResource("AtlasTexture_1xg1a")
 texture_pressed = SubResource("AtlasTexture_qopau")
 texture_hover = SubResource("AtlasTexture_ubbjv")
@@ -186,17 +277,32 @@ text = "Options"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label" type="Label" parent="." unique_id=2124586751]
-custom_minimum_size = Vector2(0, 150)
+[node name="Credits" type="TextureRect" parent="." unique_id=1064709810]
+custom_minimum_size = Vector2(300, 150)
 layout_mode = 0
-offset_left = 120.0
-offset_top = 523.0
-offset_right = 574.0
-offset_bottom = 673.0
-text = "Developers: Vika Gelbak, Ethan Hellyer
-Art: Sarah Sun
-Music: Harrison Gatt"
-vertical_alignment = 2
+offset_left = 733.0
+offset_top = 43.0
+offset_right = 1033.0
+offset_bottom = 193.0
+texture = SubResource("AtlasTexture_hb0un")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Credits" unique_id=2124586751]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Art: Sarah Sun
+Music: Harrison Gatt
+Devs: Vika Gelbak, Ethan Hellyer
+"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="OptionsPanel" type="PanelContainer" parent="." unique_id=1002923669]
 visible = false
