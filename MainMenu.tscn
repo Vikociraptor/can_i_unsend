@@ -14,6 +14,8 @@
 [ext_resource type="Texture2D" uid="uid://bbt7irln8r7tw" path="res://assets/mainmenu/Options.png" id="9_m04lp"]
 [ext_resource type="Texture2D" uid="uid://dxk4ix5tgwfok" path="res://assets/mainmenu/Options Tab Selection.png" id="10_1thib"]
 [ext_resource type="Texture2D" uid="uid://cwh1bd70qor30" path="res://assets/Unsend Tab.png" id="11_31qfy"]
+[ext_resource type="Script" uid="uid://xircje3pjcxv" path="res://draggable_block.gd" id="12_drag"]
+[ext_resource type="Texture2D" uid="uid://d3s1sqyygupkx" path="res://assets/mainmenu/Options Choices.png" id="15_3fnrj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a2hi0"]
 atlas = ExtResource("3_61cf8")
@@ -79,6 +81,12 @@ region = Rect2(2480, 1792, 496, 416)
 atlas = ExtResource("11_31qfy")
 region = Rect2(1168, 800, 1472, 768)
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_optch"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_optch"]
+atlas = ExtResource("15_3fnrj")
+region = Rect2(1916, 1842, 570, 326)
+
 [node name="MainMenu" type="Control" unique_id=693102462]
 layout_mode = 3
 anchors_preset = 15
@@ -110,6 +118,7 @@ offset_bottom = 278.0
 texture = SubResource("AtlasTexture_a2hi0")
 expand_mode = 1
 stretch_mode = 5
+script = ExtResource("12_drag")
 
 [node name="Label" type="Label" parent="Title1" unique_id=1365634927]
 layout_mode = 1
@@ -134,6 +143,7 @@ offset_bottom = 309.0
 texture = SubResource("AtlasTexture_dtokf")
 expand_mode = 1
 stretch_mode = 5
+script = ExtResource("12_drag")
 
 [node name="Label" type="Label" parent="Title2" unique_id=1951059290]
 layout_mode = 1
@@ -158,6 +168,7 @@ offset_bottom = 253.0
 texture = SubResource("AtlasTexture_v66i4")
 expand_mode = 1
 stretch_mode = 5
+script = ExtResource("12_drag")
 
 [node name="Label" type="Label" parent="Title3" unique_id=12271711]
 layout_mode = 1
@@ -184,6 +195,7 @@ texture_pressed = SubResource("AtlasTexture_0v6pm")
 texture_hover = SubResource("AtlasTexture_we7e7")
 ignore_texture_size = true
 stretch_mode = 5
+script = ExtResource("12_drag")
 
 [node name="Label" type="Label" parent="Easy" unique_id=808631407]
 layout_mode = 1
@@ -210,6 +222,7 @@ texture_pressed = SubResource("AtlasTexture_tpg87")
 texture_hover = SubResource("AtlasTexture_hukyg")
 ignore_texture_size = true
 stretch_mode = 5
+script = ExtResource("12_drag")
 
 [node name="Label" type="Label" parent="Medium" unique_id=504346799]
 layout_mode = 1
@@ -236,6 +249,7 @@ texture_pressed = SubResource("AtlasTexture_qopau")
 texture_hover = SubResource("AtlasTexture_ubbjv")
 ignore_texture_size = true
 stretch_mode = 5
+script = ExtResource("12_drag")
 
 [node name="Label" type="Label" parent="Hard" unique_id=2000361451]
 layout_mode = 1
@@ -263,6 +277,7 @@ texture_pressed = SubResource("AtlasTexture_v0lpx")
 texture_hover = SubResource("AtlasTexture_uyrqt")
 ignore_texture_size = true
 stretch_mode = 5
+script = ExtResource("12_drag")
 
 [node name="Label" type="Label" parent="Options" unique_id=263176594]
 layout_mode = 1
@@ -304,52 +319,67 @@ Devs: Vika Gelbak, Ethan Hellyer
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="OptionsPanel" type="PanelContainer" parent="." unique_id=1002923669]
-visible = false
-custom_maximum_size = Vector2(300, 400)
+[node name="OptionsPanel" type="Panel" parent="." unique_id=2003751128]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 722.0
+offset_top = 457.0
+offset_right = 888.0
+offset_bottom = 589.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_optch")
+
+[node name="TextureRect" type="TextureRect" parent="OptionsPanel" unique_id=866792331]
 layout_mode = 0
-offset_right = 123.0
-offset_bottom = 142.0
+offset_right = 166.0
+offset_bottom = 132.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_optch")
+expand_mode = 1
+stretch_mode = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="OptionsPanel" unique_id=1912433695]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="OptionsPanel/VBoxContainer" unique_id=284492827]
-layout_mode = 2
-text = "SETTINGS"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="OptionsPanel/VBoxContainer" unique_id=779852460]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="OptionsPanel/VBoxContainer/HBoxContainer" unique_id=713472177]
-layout_mode = 2
+[node name="Sound" type="Label" parent="OptionsPanel" unique_id=396516202]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 24.0
+offset_right = 57.0
+offset_bottom = 47.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Sound"
 
-[node name="CheckButton" type="CheckButton" parent="OptionsPanel/VBoxContainer/HBoxContainer" unique_id=640023564]
-layout_mode = 2
+[node name="SoundSlide" type="HSlider" parent="OptionsPanel" unique_id=2062068370]
+layout_mode = 0
+offset_left = 61.0
+offset_top = 28.0
+offset_right = 146.0
+offset_bottom = 44.0
+rotation = -0.03141593
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="OptionsPanel/VBoxContainer" unique_id=835698233]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="OptionsPanel/VBoxContainer/HBoxContainer2" unique_id=1118340586]
-layout_mode = 2
+[node name="Music" type="Label" parent="OptionsPanel" unique_id=1118340586]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 58.0
+offset_right = 54.0
+offset_bottom = 81.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Music"
 
-[node name="CheckButton" type="CheckButton" parent="OptionsPanel/VBoxContainer/HBoxContainer2" unique_id=1395637663]
-layout_mode = 2
+[node name="MusicSlide" type="HSlider" parent="OptionsPanel" unique_id=1094329514]
+layout_mode = 0
+offset_left = 61.0
+offset_top = 57.0
+offset_right = 147.0
+offset_bottom = 81.0
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="OptionsPanel/VBoxContainer" unique_id=1637114621]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="OptionsPanel/VBoxContainer/HBoxContainer3" unique_id=396516202]
-layout_mode = 2
-text = "Language"
-
-[node name="CheckButton" type="CheckButton" parent="OptionsPanel/VBoxContainer/HBoxContainer3" unique_id=1725711161]
-layout_mode = 2
-
-[node name="Button" type="Button" parent="OptionsPanel/VBoxContainer" unique_id=770473495]
-layout_mode = 2
+[node name="Button" type="Button" parent="OptionsPanel" unique_id=770473495]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 92.0
+offset_right = 150.0
+offset_bottom = 112.0
+rotation = -0.034906585
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
 text = "X"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=404663459]
@@ -360,4 +390,4 @@ autoplay = true
 [connection signal="pressed" from="Medium" to="." method="_on_medium_pressed"]
 [connection signal="pressed" from="Hard" to="." method="_on_hard_pressed"]
 [connection signal="pressed" from="Options" to="." method="_on_options_button_pressed"]
-[connection signal="pressed" from="OptionsPanel/VBoxContainer/Button" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="OptionsPanel/Button" to="." method="_on_close_button_pressed"]
