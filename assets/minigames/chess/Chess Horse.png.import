@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cpsin6sglkrvh"
-path="res://.godot/imported/title.png-f520a0d529e74edf0d3ba77895c4527c.ctex"
+uid="uid://bp8mdwu4lik2k"
+path="res://.godot/imported/Chess Horse.png-8d50197f23a7ad7fd9e4e500ae69b3e3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/title.png"
-dest_files=["res://.godot/imported/title.png-f520a0d529e74edf0d3ba77895c4527c.ctex"]
+source_file="res://assets/minigames/chess/Chess Horse.png"
+dest_files=["res://.godot/imported/Chess Horse.png-8d50197f23a7ad7fd9e4e500ae69b3e3.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cns8ebv25e82k"
-path="res://.godot/imported/Chess Queen.png-75cc9236ff6694797b64af8d2861eda7.ctex"
+uid="uid://105tk5o5fuif"
+path="res://.godot/imported/Chess Pawn.png-ef204dead105fb023a55958117ac5ad5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Chess Queen.png"
-dest_files=["res://.godot/imported/Chess Queen.png-75cc9236ff6694797b64af8d2861eda7.ctex"]
+source_file="res://assets/minigames/chess/Chess Pawn.png"
+dest_files=["res://.godot/imported/Chess Pawn.png-ef204dead105fb023a55958117ac5ad5.ctex"]
 
 [params]
 

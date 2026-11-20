@@ -20,6 +20,13 @@ enum players {White, Black}
 
 @export var player = players.White
 
+# Lowercase = white, uppercase = black (same letters as `layout`)
+@export var piece_textures: Dictionary[String, Texture2D] = {
+	"p": null, "n": null, "b": null, "r": null, "q": null, "k": null,
+	"P": null, "N": null, "B": null, "R": null, "Q": null, "K": null,
+}
+@export var piece_size := 60.0  # drawn size in pixels; a cell is 80
+
 # Every puzzle is a single move by `player`. The goal decides whether that move wins.
 # EscapeCheck: the player starts in check; any move that gets the king out of check wins.
 # GiveCheck: the move must put the opponent's king in check.
@@ -270,7 +277,7 @@ func get_bounds() -> Rect2:
 	return Rect2(Vector2.ONE * -gridSize / 2.0, cells * step - Vector2.ONE * padding)
 
 func _draw() -> void:
-	var step = gridSize + padding
+	var step: float = gridSize + padding
 	var cellVector = Vector2.ONE * gridSize
 
 	for y in layout.size():
@@ -284,5 +291,15 @@ func _draw() -> void:
 	for i in grid.size():
 		for j in grid[i].size():
 			if grid[i][j] != ".":
-				draw_circle(Vector2(j, i) * step, 25, colour_for(grid[i][j]))
+				var center := Vector2(j, i) * step
+				var tex: Texture2D = piece_textures.get(grid[i][j])
+				var is_opponent: bool = owner_of(Vector2i(j, i)) != player
+				if tex:
+					var draw_size := Vector2.ONE * piece_size
+					# Opponent pieces are tinted red; the player's pieces keep the texture's own colours.
+					var tint := Color.RED if is_opponent else Color.WHITE
+					draw_texture_rect(tex, Rect2(center - draw_size / 2.0, draw_size), false, tint)
+				else:
+					# Fallback circle until art is assigned
+					draw_circle(center, 25, Color.RED if is_opponent else colour_for(grid[i][j]))
 				

@@ -19,6 +19,7 @@ func _process(delta: float) -> void:
 	if not solved and game.levelWon:
 		solved = true
 		game.interactive = false
+		$Grid.hide()
 		finished.emit()
 
 func set_active(value: bool) -> void:

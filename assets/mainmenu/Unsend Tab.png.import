@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cf76dbw24ug32"
-path="res://.godot/imported/Chess Bishop.png-37ab8b8257884b4be736d58ab03998c2.ctex"
+uid="uid://cwh1bd70qor30"
+path="res://.godot/imported/Unsend Tab.png-e358b4cbcb0be9c884d1ce2bfbc3e433.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Chess Bishop.png"
-dest_files=["res://.godot/imported/Chess Bishop.png-37ab8b8257884b4be736d58ab03998c2.ctex"]
+source_file="res://assets/mainmenu/Unsend Tab.png"
+dest_files=["res://.godot/imported/Unsend Tab.png-e358b4cbcb0be9c884d1ce2bfbc3e433.ctex"]
 
 [params]
 

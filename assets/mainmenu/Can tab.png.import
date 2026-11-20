@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://i82ux34lj7cf"
-path="res://.godot/imported/menu_img.png-5d7074d0fbbededf79253fefcf608671.ctex"
+uid="uid://cuwyrnm1ic2g6"
+path="res://.godot/imported/Can tab.png-acbdb0b9eb6ab2240999051344e19b1d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/menu_img.png"
-dest_files=["res://.godot/imported/menu_img.png-5d7074d0fbbededf79253fefcf608671.ctex"]
+source_file="res://assets/mainmenu/Can tab.png"
+dest_files=["res://.godot/imported/Can tab.png-acbdb0b9eb6ab2240999051344e19b1d.ctex"]
 
 [params]
 

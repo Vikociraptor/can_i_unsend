@@ -15,9 +15,9 @@ var timerCount = true
 signal code_correct
 signal code_wrong
 
-@onready var intro_label : Label = $CanvasLayer/CenterContainer/VBoxContainer/IntroLabel
-@onready var code_input : LineEdit = $CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer/LineEdit
-@export  var input_container : Container
+@onready var intro_label : Label = $CanvasLayer/IntroLabel
+@onready var code_input : LineEdit = $CanvasLayer/HBoxContainer/LineEdit
+@export var input_container : Container
 
 
 var remaining := 0
@@ -59,7 +59,7 @@ func _process(delta: float) -> void:
 		if timer > 5.0:
 			timerLabel.text = str(int(floor(timer)))
 		else:
-			timerLabel.text = str(max(0.0, timer))
+			timerLabel.text = "%.1f" % max(0.0, timer)
 			timerLabel.add_theme_color_override("font_color", Color.RED)
 		if timer > 0.0:
 			timer -= delta

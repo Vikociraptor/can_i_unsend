@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://v3w5usm1qgcc"
-path="res://.godot/imported/I Tab.png-f7931d8ea1019646be0ff7f8a1472b56.ctex"
+uid="uid://cuqhnf4esm13j"
+path="res://.godot/imported/Chess King.png-15b832513dee2ec3c499c3913272f645.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/I Tab.png"
-dest_files=["res://.godot/imported/I Tab.png-f7931d8ea1019646be0ff7f8a1472b56.ctex"]
+source_file="res://assets/minigames/chess/Chess King.png"
+dest_files=["res://.godot/imported/Chess King.png-15b832513dee2ec3c499c3913272f645.ctex"]
 
 [params]
 

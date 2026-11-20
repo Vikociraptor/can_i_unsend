@@ -18,9 +18,12 @@ const HEADER_INACTIVE := preload("res://assets/RetroWindowsGUI/Window_Header_Ina
 var active := false
 var mouseOver: bool
 var dragging := false
-var drag_offset: Vector2 
+var drag_offset: Vector2
+# True for windows using the retro header art; windows with their own art (e.g. chess) keep it.
+var uses_header_art := false
 
 func _ready() -> void:
+	uses_header_art = window.texture == HEADER_ACTIVE or window.texture == HEADER_INACTIVE
 	result.hide()
 	set_active(false)  # every window starts inactive
 
@@ -29,7 +32,11 @@ func set_active(value: bool) -> void:
 	if not active:
 		dragging = false
 	z_index = Z_ACTIVE if active else Z_INACTIVE
-	window.texture = HEADER_ACTIVE if active else HEADER_INACTIVE
+	if uses_header_art:
+		window.texture = HEADER_ACTIVE if active else HEADER_INACTIVE
+	else:
+		# Custom art: dim the window slightly when inactive instead of swapping textures.
+		window.self_modulate = Color.WHITE if active else Color(0.85, 0.85, 0.85)
 
 func contains_point(global_point: Vector2) -> bool:
 	return window.get_global_rect().has_point(global_point)

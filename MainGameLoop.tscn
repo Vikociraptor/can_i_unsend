@@ -5,48 +5,93 @@
 [ext_resource type="PackedScene" uid="uid://jmh44r4qvtyd" path="res://minigames/chess_minigame.tscn" id="5_d1nqu"]
 [ext_resource type="AudioStream" uid="uid://2otxc17fvic0" path="res://Audio/Music/Oh shit! Where's unsend!.ogg" id="7_e2yq2"]
 [ext_resource type="PackedScene" uid="uid://cetvhssiiotvk" path="res://minigames/flow_minigame.tscn" id="7_flow"]
+[ext_resource type="Texture2D" uid="uid://bkbh488kmh32f" path="res://assets/Desktop.png" id="7_lduhq"]
+[ext_resource type="Texture2D" uid="uid://ca5651ukyodyi" path="res://assets/Email Sent.png" id="8_o85va"]
 [ext_resource type="PackedScene" path="res://minigames/unblock_minigame.tscn" id="8_unblock"]
+[ext_resource type="Texture2D" uid="uid://bmbr20pxlpt2u" path="res://assets/Email Blank.png" id="9_4uooi"]
 [ext_resource type="PackedScene" path="res://minigames/password_minigame.tscn" id="9_password"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_be312"]
+atlas = ExtResource("8_o85va")
+region = Rect2(240, 688, 2656, 1536)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_we7e7"]
+atlas = ExtResource("9_4uooi")
+region = Rect2(1456, 960, 1408, 1200)
 
 [node name="MainGameLoop" type="Node2D" unique_id=682557079 node_paths=PackedStringArray("timerLabel", "input_container")]
 script = ExtResource("1_v8d43")
 all_minigames = Array[PackedScene]([ExtResource("7_flow"), ExtResource("8_unblock"), ExtResource("4_h46g1"), ExtResource("5_d1nqu"), ExtResource("9_password")])
 spawn_positions = Array[Vector2]([Vector2(40, 100), Vector2(600, 100), Vector2(40, 330), Vector2(600, 330)])
+minigame_scale = null
+intro_duration = null
+words = null
+timer = null
 timerLabel = NodePath("CanvasLayer/Timer")
-input_container = NodePath("CanvasLayer/CenterContainer")
+input_container = NodePath("CanvasLayer/HBoxContainer")
+
+[node name="BackgroundLayer" type="CanvasLayer" parent="." unique_id=242124585]
+layer = -1
+
+[node name="Background" type="TextureRect" parent="BackgroundLayer" unique_id=630135036]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("7_lduhq")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Email" type="TextureRect" parent="BackgroundLayer" unique_id=1865812171]
+custom_minimum_size = Vector2(800, 463)
+offset_left = 175.0
+offset_top = 90.0
+offset_right = 975.0
+offset_bottom = 553.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_be312")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="TextureRect" type="TextureRect" parent="BackgroundLayer" unique_id=784921879]
+custom_minimum_size = Vector2(300, 321)
+offset_left = 517.0
+offset_top = 174.0
+offset_right = 986.3333
+offset_bottom = 536.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_we7e7")
+expand_mode = 3
+stretch_mode = 5
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=672813929]
 
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer" unique_id=1400421367]
-anchors_preset = 10
-anchor_right = 1.0
-offset_top = 32.0
-offset_bottom = 90.0
-grow_horizontal = 2
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer" unique_id=1539065076]
+offset_left = 558.0
+offset_top = 297.0
+offset_right = 948.0
+offset_bottom = 328.0
 mouse_filter = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer" unique_id=1317877062]
-layout_mode = 2
-offset_transform_position = Vector2(0, -30)
-mouse_filter = 2
-
-[node name="IntroLabel" type="Label" parent="CanvasLayer/CenterContainer/VBoxContainer" unique_id=72889644]
-layout_mode = 2
-text = "Type the result of x y z to stop the email send"
-horizontal_alignment = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/CenterContainer/VBoxContainer" unique_id=1539065076]
-layout_mode = 2
-mouse_filter = 2
-
-[node name="LineEdit" type="LineEdit" parent="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer" unique_id=744836215]
-custom_minimum_size = Vector2(400, 30)
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer/HBoxContainer" unique_id=744836215]
+custom_minimum_size = Vector2(323, 30)
 layout_mode = 2
 placeholder_text = "Enter code here"
 
-[node name="Button" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer" unique_id=1539606906]
+[node name="Button" type="Button" parent="CanvasLayer/HBoxContainer" unique_id=1539606906]
 layout_mode = 2
 text = "Submit"
+
+[node name="IntroLabel" type="Label" parent="CanvasLayer" unique_id=72889644]
+offset_left = 558.0
+offset_top = 266.0
+offset_right = 948.0
+offset_bottom = 289.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Type the result of x y z to stop the email send"
+horizontal_alignment = 1
 
 [node name="Timer" type="Label" parent="CanvasLayer" unique_id=163595563]
 offset_right = 40.0
@@ -60,4 +105,4 @@ volume_db = -8.0
 autoplay = true
 bus = &"Music"
 
-[connection signal="pressed" from="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer/Button" to="." method="_on_submit_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/Button" to="." method="_on_submit_button_pressed"]
