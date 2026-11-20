@@ -320,6 +320,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="OptionsPanel" type="Panel" parent="." unique_id=2003751128]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 offset_left = 722.0
@@ -353,6 +354,9 @@ offset_top = 28.0
 offset_right = 146.0
 offset_bottom = 44.0
 rotation = -0.03141593
+max_value = 1.0
+step = 0.01
+value = 1.0
 
 [node name="Music" type="Label" parent="OptionsPanel" unique_id=1118340586]
 layout_mode = 0
@@ -369,6 +373,9 @@ offset_left = 61.0
 offset_top = 57.0
 offset_right = 147.0
 offset_bottom = 81.0
+max_value = 1.0
+step = 0.01
+value = 1.0
 
 [node name="Button" type="Button" parent="OptionsPanel" unique_id=770473495]
 layout_mode = 0
@@ -385,9 +392,12 @@ text = "X"
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=404663459]
 stream = ExtResource("4_qoqlk")
 autoplay = true
+bus = &"Music"
 
 [connection signal="pressed" from="Easy" to="." method="_on_easy_pressed"]
 [connection signal="pressed" from="Medium" to="." method="_on_medium_pressed"]
 [connection signal="pressed" from="Hard" to="." method="_on_hard_pressed"]
 [connection signal="pressed" from="Options" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="OptionsPanel/Button" to="." method="_on_close_button_pressed"]
+[connection signal="value_changed" from="OptionsPanel/SoundSlide" to="." method="_on_sound_slide_value_changed"]
+[connection signal="value_changed" from="OptionsPanel/MusicSlide" to="." method="_on_music_slide_value_changed"]

@@ -2,6 +2,8 @@ extends Control
 
 func _ready() -> void:
 	$OptionsPanel.hide()
+	$OptionsPanel/MusicSlide.value = _bus_volume("Music")
+	$OptionsPanel/SoundSlide.value = _bus_volume("Sound")
 
 func _start_game(mode: String) -> void:
 	GameSettings.minigame_count = GameSettings.MODES[mode]
@@ -38,3 +40,26 @@ func _on_options_button_pressed() -> void:
 func _on_close_button_pressed() -> void:
 	$OptionsPanel.hide()
 	$Options.show()
+
+func _bus_volume(bus_name: String) -> float:
+	var bus_idx := AudioServer.get_bus_index(bus_name)
+	if bus_idx == -1 or AudioServer.is_bus_mute(bus_idx):
+		return 0.0
+	return db_to_linear(AudioServer.get_bus_volume_db(bus_idx))
+
+func _on_music_slide_value_changed(value: float) -> void:
+	set_bus_volume("Music", value)
+
+func _on_sound_slide_value_changed(value: float) -> void:
+	set_bus_volume("Sound", value)
+
+func set_bus_volume(bus_name: String, linear_value: float) -> void:
+	var bus_idx := AudioServer.get_bus_index(bus_name)
+	if bus_idx == -1:
+		return
+	
+	if linear_value <= 0.001:
+		AudioServer.set_bus_mute(bus_idx, true)
+	else:
+		AudioServer.set_bus_mute(bus_idx, false)
+		AudioServer.set_bus_volume_db(bus_idx, linear_to_db(linear_value))
