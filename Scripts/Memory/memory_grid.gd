@@ -8,6 +8,9 @@ const padding = 5
 @export var camera: Camera2D
 
 @export var pairs := 4
+@export var card_textures: Array[Texture2D] = []
+# Art for face-down cards
+@export var card_back: Texture2D
 
 var layout = []
 
@@ -29,7 +32,7 @@ var levelLost = false
 var interactive = true
 
 func _ready() -> void:
-	pairs = clamp(pairs, 1, possibleChar.length())
+	pairs = mini(pairs, card_textures.size())
 
 	create_layout()
 
@@ -121,7 +124,20 @@ func _draw() -> void:
 			draw_rect(Rect2(center - cellVector / 2.0, cellVector), Color.DIM_GRAY)
 
 	for c in cards:
+		var index := possibleChar.find(c)
+		var tex: Texture2D = card_textures[index] if index < card_textures.size() else null
 		for cell in cards[c]:
-			print(grid[cell.y][cell.x])
-			if matches.has(grid[cell.y][cell.x]) or cell == firstSelectedCardCell:
-				draw_circle(Vector2(cell) * step, 25, colour_for(c))
+			var center: Vector2 = Vector2(cell) * step
+			var face_up: bool = matches.has(c) or cell == firstSelectedCardCell
+			if face_up and tex:
+				draw_texture_rect(tex, _fit_rect(tex, center), false)
+			elif face_up:
+				draw_circle(center, 25, colour_for(c))  # fallback when a card has no art
+			elif card_back:
+				draw_texture_rect(card_back, _fit_rect(card_back, center), false)
+
+func _fit_rect(tex: Texture2D, center: Vector2) -> Rect2:
+	var s := tex.get_size()
+	var fit := minf(gridSize / s.x, gridSize / s.y)
+	var draw_size := s * fit
+	return Rect2(center - draw_size / 2.0, draw_size)

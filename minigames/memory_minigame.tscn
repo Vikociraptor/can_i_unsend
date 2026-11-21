@@ -1,49 +1,48 @@
 [gd_scene format=3 uid="uid://bx0elq213kqbx"]
 
 [ext_resource type="Script" uid="uid://ctqyg4130u6cg" path="res://minigames/puzzle_minigame.gd" id="1_3jprq"]
-[ext_resource type="Texture2D" uid="uid://3iyye5wcyugm" path="res://assets/RetroWindowsGUI/Window_Header.png" id="2_hhwsc"]
-[ext_resource type="Texture2D" uid="uid://7u4tja0fyhpm" path="res://assets/RetroWindowsGUI/Windows_Button.png" id="3_p0bon"]
-[ext_resource type="Texture2D" uid="uid://ko1w1ywfysu2" path="res://assets/RetroWindowsGUI/Windows_Button_Pressed.png" id="4_q6hqq"]
-[ext_resource type="Texture2D" uid="uid://cuki5h7pvmqyq" path="res://assets/RetroWindowsGUI/Windows_Icons.png" id="5_jbnu7"]
+[ext_resource type="Texture2D" uid="uid://c3oiknfcds6jw" path="res://assets/Gameplay Background.png" id="2_bg"]
+[ext_resource type="Texture2D" uid="uid://dvlyghy3l7a4s" path="res://assets/minigames/memory_cards.png" id="4_4ek1t"]
 [ext_resource type="Script" uid="uid://1dbh0a0gj8ll" path="res://Scripts/Memory/memory_grid.gd" id="6_sqj7o"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0v6pm"]
-texture = ExtResource("3_p0bon")
-texture_margin_left = 2.0
-texture_margin_top = 2.0
-texture_margin_right = 2.0
-texture_margin_bottom = 2.0
+[sub_resource type="AtlasTexture" id="AtlasTexture_330w1"]
+atlas = ExtResource("4_4ek1t")
+region = Rect2(96, 80, 176, 224)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bvlth"]
-texture = ExtResource("4_q6hqq")
-texture_margin_left = 2.0
-texture_margin_top = 2.0
-texture_margin_right = 2.0
-texture_margin_bottom = 2.0
+[sub_resource type="AtlasTexture" id="AtlasTexture_g46mo"]
+atlas = ExtResource("4_4ek1t")
+region = Rect2(288, 64, 176, 240)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cfbnv"]
-texture = ExtResource("3_p0bon")
-texture_margin_left = 2.0
-texture_margin_top = 2.0
-texture_margin_right = 2.0
-texture_margin_bottom = 2.0
+[sub_resource type="AtlasTexture" id="AtlasTexture_6yyxy"]
+atlas = ExtResource("4_4ek1t")
+region = Rect2(656, 80, 144, 224)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tpg87"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_lfem7"]
+atlas = ExtResource("4_4ek1t")
+region = Rect2(992, 64, 144, 240)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_we7e7"]
-atlas = ExtResource("5_jbnu7")
-region = Rect2(96, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_0fee3"]
+atlas = ExtResource("4_4ek1t")
+region = Rect2(96, 320, 176, 224)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_elwks"]
-atlas = ExtResource("5_jbnu7")
-region = Rect2(80, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_vkqnu"]
+atlas = ExtResource("4_4ek1t")
+region = Rect2(464, 320, 160, 208)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ymfxl"]
-atlas = ExtResource("5_jbnu7")
-region = Rect2(48, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_scuhu"]
+atlas = ExtResource("4_4ek1t")
+region = Rect2(288, 320, 160, 224)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g5mrt"]
+atlas = ExtResource("4_4ek1t")
+region = Rect2(1536, 80, 160, 224)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ek1t"]
+atlas = ExtResource("4_4ek1t")
+region = Rect2(1344, 80, 160, 240)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_be312"]
-size = Vector2(496.5, 55)
+size = Vector2(418.25, 55)
 
 [node name="MemoryMinigame" type="Node2D" unique_id=553078582 node_paths=PackedStringArray("game")]
 script = ExtResource("1_3jprq")
@@ -51,12 +50,13 @@ game = NodePath("Grid")
 display_name = "Memory Game"
 
 [node name="Window" type="NinePatchRect" parent="." unique_id=1527480438]
-custom_minimum_size = Vector2(400, 300)
-offset_left = 293.0
-offset_top = 68.0
-offset_right = 877.0
-offset_bottom = 509.0
-texture = ExtResource("2_hhwsc")
+custom_minimum_size = Vector2(450, 350)
+offset_left = -225.0
+offset_top = -175.0
+offset_right = 225.0
+offset_bottom = 175.0
+texture = ExtResource("2_bg")
+region_rect = Rect2(176, 144, 3072, 2096)
 patch_margin_left = 3
 patch_margin_top = 23
 patch_margin_right = 3
@@ -64,68 +64,36 @@ patch_margin_bottom = 3
 
 [node name="Title" type="Label" parent="Window" unique_id=347976614]
 layout_mode = 0
-offset_right = 190.0
-offset_bottom = 47.0
-grow_horizontal = 2
+offset_left = 14.0
+offset_top = 68.0
+offset_right = 204.0
+offset_bottom = 115.0
+rotation = -0.06632251
 offset_transform_enabled = true
 offset_transform_position = Vector2(6, 5)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 34
 text = "Memory"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Window" unique_id=122604830]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -79.0
-offset_top = 11.0
-offset_right = -11.0
-offset_bottom = 31.0
-grow_horizontal = 0
-
-[node name="Minimise" type="Button" parent="Window/HBoxContainer" unique_id=1506732584]
-custom_minimum_size = Vector2(16, 16)
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxTexture_0v6pm")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_bvlth")
-theme_override_styles/hover = SubResource("StyleBoxTexture_cfbnv")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_tpg87")
-icon = SubResource("AtlasTexture_we7e7")
-
-[node name="Maximise" type="Button" parent="Window/HBoxContainer" unique_id=1035487594]
-custom_minimum_size = Vector2(16, 16)
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxTexture_0v6pm")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_bvlth")
-theme_override_styles/hover = SubResource("StyleBoxTexture_cfbnv")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_tpg87")
-icon = SubResource("AtlasTexture_elwks")
-
-[node name="Close" type="Button" parent="Window/HBoxContainer" unique_id=477217186]
-custom_minimum_size = Vector2(16, 16)
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxTexture_0v6pm")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_bvlth")
-theme_override_styles/hover = SubResource("StyleBoxTexture_cfbnv")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_tpg87")
-icon = SubResource("AtlasTexture_ymfxl")
 
 [node name="GameArea" type="Control" parent="Window" unique_id=1487814492]
 anchors_preset = 0
 offset_left = 12.0
-offset_top = 56.0
-offset_right = 572.0
-offset_bottom = 384.0
+offset_top = 121.0
+offset_right = 424.0
+offset_bottom = 323.0
+rotation = -0.03141593
 mouse_filter = 2
 
 [node name="Grid" type="Node2D" parent="." unique_id=298960352]
 script = ExtResource("6_sqj7o")
+card_textures = Array[Texture2D]([SubResource("AtlasTexture_330w1"), SubResource("AtlasTexture_g46mo"), SubResource("AtlasTexture_6yyxy"), SubResource("AtlasTexture_lfem7"), SubResource("AtlasTexture_0fee3"), SubResource("AtlasTexture_vkqnu"), SubResource("AtlasTexture_scuhu"), SubResource("AtlasTexture_g5mrt")])
+card_back = SubResource("AtlasTexture_4ek1t")
 
 [node name="Result" type="Label" parent="." unique_id=1376386682]
-offset_left = 305.0
-offset_top = 460.0
-offset_right = 865.0
-offset_bottom = 500.0
+offset_left = -203.0
+offset_top = -3.0
+offset_right = 197.0
+offset_bottom = 37.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 23
 horizontal_alignment = 1
@@ -134,7 +102,8 @@ vertical_alignment = 1
 [node name="MoveArea" type="Area2D" parent="." unique_id=2037982697]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MoveArea" unique_id=1544029002]
-position = Vector2(545.75, 100.5)
+position = Vector2(-3, -95.00001)
+rotation = -0.07853982
 shape = SubResource("RectangleShape2D_be312")
 
 [connection signal="mouse_entered" from="MoveArea" to="." method="_on_move_area_mouse_entered"]

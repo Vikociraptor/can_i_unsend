@@ -1,6 +1,3 @@
-# A minigame window that hosts a puzzle grid (FlowGrid, GridManager, ...).
-# The grid is scaled to fit Window/GameArea, only takes input while this window
-# is the active one, and the window finishes once the grid's levelWon turns true.
 extends "res://minigames/minigame.gd"
 
 # Any grid with levelWon, interactive and get_bounds().
