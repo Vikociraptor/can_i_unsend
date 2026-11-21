@@ -8,6 +8,10 @@ const blockSceneSize = 40.0 # width and height of block.tscn before scaling
 
 @export var obstacleBlock: PackedScene
 
+@export var block_textures: Dictionary[int, Texture2D] = {1: null, 2: null, 3: null, 4: null}
+@export var goal_block_texture: Texture2D
+@export var goal_tint := Color(1.0, 0.45, 0.45)
+
 @export var camera: Camera2D
 
 # "." is an empty cell. Any other valid character is one straight block.
@@ -88,10 +92,25 @@ func _ready() -> void:
 		block.freeze = true
 		block.width = cellCount.x
 		block.height = cellCount.y
-		block.scale = pixelSize / blockSceneSize
 		block.position = Vector2(first + last) / 2.0 * step
-		if c == "*":
-			block.get_node("ColorRect").color = Color.RED
+
+		var length: int = maxi(cellCount.x, cellCount.y)
+		var vertical: bool = cellCount.y > cellCount.x
+		var art: TextureRect = block.get_node("Art")
+		art.texture = goal_block_texture if c == "*" and goal_block_texture else block_textures.get(length)
+		art.self_modulate = goal_tint if c == "*" else Color.WHITE
+
+		# Lay the art out horizontally, then turn it 90° for vertical blocks.
+		var art_size : Vector2 = Vector2(pixelSize.y, pixelSize.x) if vertical else pixelSize
+		art.size = art_size
+		art.position = -art_size / 2.0
+		art.pivot_offset = art_size / 2.0
+		art.rotation = PI / 2.0 if vertical else 0.0
+
+		# Each block needs its own collision shape; they share one by default.
+		var shape := block.get_node("CollisionShape2D").shape.duplicate() as RectangleShape2D
+		shape.size = pixelSize
+		block.get_node("CollisionShape2D").shape = shape
 		add_child(block)
 		blockNodes[c] = block
 
