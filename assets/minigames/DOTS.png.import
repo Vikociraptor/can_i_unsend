@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cwat8hurgs8jt"
-path="res://.godot/imported/DOTS.png-95e47b2ea187d1331936932582360e45.ctex"
+path="res://.godot/imported/DOTS.png-e1fff417680b98087f27e4d38f9b3ba5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/DOTS.png"
-dest_files=["res://.godot/imported/DOTS.png-95e47b2ea187d1331936932582360e45.ctex"]
+source_file="res://assets/minigames/DOTS.png"
+dest_files=["res://.godot/imported/DOTS.png-e1fff417680b98087f27e4d38f9b3ba5.ctex"]
 
 [params]
 

@@ -9,6 +9,15 @@ const lineWidth = gridSize * 0.3
 
 @export var camera: Camera2D
 
+@export var piece_textures: Dictionary[String, Texture2D] = {
+	"a": null, "b": null, "c": null, "d": null
+}
+
+@export var line_colors: Dictionary[String, Color] = {
+	# Color8 takes 0–255 values; plain Color() expects 0–1.
+	"a": Color8(247, 12, 255), "b": Color8(54, 255, 3), "c": Color8(0, 216, 255), "d": Color8(255, 138, 0)
+}
+
 # "." is an empty cell. Any other character is a dot, and each one must appear exactly twice.
 @export var layout: PackedStringArray = [
 	"a...b",
@@ -71,7 +80,8 @@ func _ready() -> void:
 			grid = []
 			dots = {}
 			return
-		colours[c] = colour_for(c)
+		# Line colour from line_colors; letters not listed there get a generated colour.
+		colours[c] = line_colors.get(c, colour_for(c))
 
 	# Inside a minigame window there's no camera, the window positions the grid instead.
 	if camera:
@@ -200,6 +210,12 @@ func _draw() -> void:
 		for cell in line:
 			draw_circle(Vector2(cell) * step, lineWidth / 2.0, colours[c])
 
+	var dot_size := Vector2.ONE * dotRadius * 2.0
 	for c in dots:
+		var tex: Texture2D = piece_textures.get(c)
 		for cell in dots[c]:
-			draw_circle(Vector2(cell) * step, dotRadius, colours[c])
+			var center: Vector2 = Vector2(cell) * step
+			if tex:
+				draw_texture_rect(tex, Rect2(center - dot_size / 2.0, dot_size), false)
+			else:
+				draw_circle(center, dotRadius, colours[c])  # fallback for letters without art
