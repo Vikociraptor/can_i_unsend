@@ -17,6 +17,7 @@ signal code_wrong
 
 @onready var intro_label : Label = $CanvasLayer/IntroLabel
 @onready var code_input : LineEdit = $CanvasLayer/HBoxContainer/LineEdit
+@onready var send_email_texture : TextureRect = $BackgroundLayer/SendEmail
 @export var input_container : Container
 
 
@@ -27,6 +28,7 @@ var code_order: Array[String] = []
 var placed_minigames: Array[Node2D] = []
 
 func _ready() -> void:
+	$BackgroundLayer/BossEmail.hide()
 	var minigame_count = GameSettings.minigame_count
 	available_words = words.duplicate()
 	available_words.shuffle()
@@ -64,9 +66,22 @@ func _process(delta: float) -> void:
 		if timer > 0.0:
 			timer -= delta
 		else:
+			# Time's up: stop the timer so this only runs once, then lose and hide every minigame.
+			timerCount = false
+			timerLabel.text = "0.0"
+			code_input.editable = false
+			send_email_texture.hide()
+			input_container.hide()
+			intro_label.hide()
 			for minigame in placed_minigames:
 				if is_instance_valid(minigame):
 					minigame.game.levelLost = true
+					minigame.dragging = false
+					minigame.hide()
+			await get_tree().create_timer(1).timeout
+			$BackgroundLayer/BossEmail.show()
+			await get_tree().create_timer(5).timeout
+			get_tree().change_scene_to_file("res://MainMenu.tscn")
 
 #Correct wording for label based on number of minigames
 func _join_names(names: Array[String]) -> String:

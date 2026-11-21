@@ -18,6 +18,10 @@ region = Rect2(240, 688, 2656, 1536)
 atlas = ExtResource("9_4uooi")
 region = Rect2(1456, 960, 1408, 1200)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_0v6pm"]
+atlas = ExtResource("9_4uooi")
+region = Rect2(1456, 912, 1424, 1280)
+
 [node name="MainGameLoop" type="Node2D" unique_id=682557079 node_paths=PackedStringArray("timerLabel", "input_container")]
 script = ExtResource("1_v8d43")
 all_minigames = Array[PackedScene]([ExtResource("7_flow"), ExtResource("8_unblock"), ExtResource("4_h46g1"), ExtResource("5_d1nqu")])
@@ -50,7 +54,7 @@ texture = SubResource("AtlasTexture_be312")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="TextureRect" type="TextureRect" parent="BackgroundLayer" unique_id=784921879]
+[node name="SendEmail" type="TextureRect" parent="BackgroundLayer" unique_id=784921879]
 custom_minimum_size = Vector2(300, 321)
 offset_left = 517.0
 offset_top = 174.0
@@ -60,6 +64,26 @@ mouse_filter = 2
 texture = SubResource("AtlasTexture_we7e7")
 expand_mode = 3
 stretch_mode = 5
+
+[node name="BossEmail" type="TextureRect" parent="BackgroundLayer" unique_id=1535748430]
+custom_minimum_size = Vector2(300, 321)
+offset_left = 510.0
+offset_top = 160.0
+offset_right = 999.0
+offset_bottom = 544.0
+texture = SubResource("AtlasTexture_0v6pm")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="BackgroundLayer/BossEmail" unique_id=118179410]
+layout_mode = 0
+offset_left = 86.0
+offset_top = 197.0
+offset_right = 404.0
+offset_bottom = 232.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
+text = "See me in my office NOW!!"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=672813929]
 
