@@ -9,6 +9,7 @@ extends Node2D
 @export var words: Array[String] = ["apple", "rocket", "banana", "spider", "pickle", "laptop", "cactus", "wizard"]
 @export var timer := 21.0;
 @export var timerLabel: Label
+@export var end_screen_time := 4.0  # seconds the win email stays up before returning to the menu
 
 var timerCount = true
 
@@ -69,19 +70,53 @@ func _process(delta: float) -> void:
 			# Time's up: stop the timer so this only runs once, then lose and hide every minigame.
 			timerCount = false
 			timerLabel.text = "0.0"
-			code_input.editable = false
-			send_email_texture.hide()
-			input_container.hide()
-			intro_label.hide()
-			for minigame in placed_minigames:
-				if is_instance_valid(minigame):
-					minigame.game.levelLost = true
-					minigame.dragging = false
-					minigame.hide()
+			_clear_desk(true)
 			await get_tree().create_timer(1).timeout
-			$BackgroundLayer/BossEmail.show()
-			await get_tree().create_timer(5).timeout
+			var boss_email: TextureRect = $BackgroundLayer/BossEmail
+			await _pop_in(boss_email).finished
+			await get_tree().create_timer(end_screen_time).timeout
 			get_tree().change_scene_to_file("res://MainMenu.tscn")
+
+# Ends the round: locks the input and hides the email, prompt and every minigame window.
+func _clear_desk(lost: bool) -> void:
+	code_input.editable = false
+	send_email_texture.hide()
+	input_container.hide()
+	intro_label.hide()
+	for minigame in placed_minigames:
+		if is_instance_valid(minigame):
+			if lost:
+				minigame.game.levelLost = true
+			minigame.dragging = false
+			minigame.hide()
+
+# Correct code before time ran out: clear the desk, pop up the "unsent" email, then back to the menu.
+func _play_win_sequence() -> void:
+	timerCount = false
+	timerLabel.add_theme_color_override("font_color", Color.GREEN)
+	_clear_desk(false)
+
+	# Fade the music out over the whole sequence.
+	var music: AudioStreamPlayer = $AudioStreamPlayer
+	create_tween().tween_property(music, "volume_db", -40.0, end_screen_time + 1.0)
+
+	await get_tree().create_timer(0.5).timeout
+
+	_pop_in($BackgroundLayer/WinEmail)
+
+	await get_tree().create_timer(end_screen_time).timeout
+	get_tree().change_scene_to_file("res://MainMenu.tscn")
+
+# Shows a popup by fading it up while it grows slightly from 85% size.
+func _pop_in(popup: Control) -> Tween:
+	popup.pivot_offset = popup.size / 2.0
+	popup.scale = Vector2.ONE * 0.85
+	popup.modulate.a = 0.0
+	popup.show()
+	var pop := create_tween().set_parallel().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	pop.tween_property(popup, "scale", Vector2.ONE, 0.4)
+	pop.tween_property(popup, "modulate:a", 1.0, 0.25)
+	return pop
 
 #Correct wording for label based on number of minigames
 func _join_names(names: Array[String]) -> String:
@@ -159,6 +194,9 @@ func _normalize(text: String) -> String:
 	return " ".join(text.to_lower().replace("\n", " ").split(" ", false))
 
 func _on_submit_button_pressed() -> void:
+	# Round already over (time ran out, or already won).
+	if not timerCount:
+		return
 	if remaining > 0:
 		print("Not all minigames solved yet")
 		code_wrong.emit()
@@ -166,9 +204,9 @@ func _on_submit_button_pressed() -> void:
 
 	var typed := _normalize(code_input.text)
 	if typed == _normalize(get_expected_code()):
-		timerCount = false
 		print("Correct! Email send stopped.")
 		code_correct.emit()
+		_play_win_sequence()
 	else:
 		print("Wrong code. Expected: ", get_expected_code(), " got: ", typed)
 		code_wrong.emit()

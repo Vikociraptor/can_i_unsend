@@ -85,6 +85,31 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 25
 text = "See me in my office NOW!!"
 
+[node name="WinEmail" type="TextureRect" parent="BackgroundLayer" unique_id=1635531900]
+visible = false
+custom_minimum_size = Vector2(300, 321)
+offset_left = 510.0
+offset_top = 160.0
+offset_right = 999.0
+offset_bottom = 544.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_0v6pm")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="BackgroundLayer/WinEmail" unique_id=2092871257]
+layout_mode = 0
+offset_left = 86.0
+offset_top = 180.0
+offset_right = 404.0
+offset_bottom = 250.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
+text = "Phew! Email unsent.
+Nobody saw a thing."
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=672813929]
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer" unique_id=1539065076]
