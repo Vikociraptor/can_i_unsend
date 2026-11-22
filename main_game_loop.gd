@@ -30,6 +30,7 @@ var placed_minigames: Array[Node2D] = []
 
 func _ready() -> void:
 	$BackgroundLayer/BossEmail.hide()
+	$BackgroundLayer/EmailAfter.hide()
 	var minigame_count = GameSettings.minigame_count
 	available_words = words.duplicate()
 	available_words.shuffle()
@@ -72,6 +73,7 @@ func _process(delta: float) -> void:
 			timerLabel.text = "0.0"
 			_clear_desk(true)
 			await get_tree().create_timer(1).timeout
+			$BackgroundLayer/EmailAfter.show()
 			var boss_email: TextureRect = $BackgroundLayer/BossEmail
 			await _pop_in(boss_email).finished
 			await get_tree().create_timer(end_screen_time).timeout
@@ -101,7 +103,7 @@ func _play_win_sequence() -> void:
 	create_tween().tween_property(music, "volume_db", -40.0, end_screen_time + 1.0)
 
 	await get_tree().create_timer(0.5).timeout
-
+	$BackgroundLayer/EmailAfter.show()
 	_pop_in($BackgroundLayer/WinEmail)
 
 	await get_tree().create_timer(end_screen_time).timeout

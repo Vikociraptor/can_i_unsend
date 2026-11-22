@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b51456v01gsi4"]
 
 [ext_resource type="Script" uid="uid://qusoqofohtyg" path="res://main_menu.gd" id="1_h7a2f"]
-[ext_resource type="Texture2D" uid="uid://bkbh488kmh32f" path="res://assets/Desktop.png" id="2_iwfq2"]
+[ext_resource type="Texture2D" uid="uid://csalgiwyu5k3" path="res://assets/background_desktop.jpeg" id="2_3fnrj"]
 [ext_resource type="Texture2D" uid="uid://cuwyrnm1ic2g6" path="res://assets/mainmenu/Can tab.png" id="3_61cf8"]
 [ext_resource type="Texture2D" uid="uid://bg60de2tnb5r" path="res://assets/mainmenu/Piss easy.png" id="3_afec1"]
 [ext_resource type="Texture2D" uid="uid://tg2jstxayi0u" path="res://assets/mainmenu/Piss easy Tab Selection.png" id="4_31qfy"]
@@ -104,9 +104,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("2_iwfq2")
+texture = ExtResource("2_3fnrj")
 expand_mode = 1
 stretch_mode = 5
+
+[node name="TextureRect" type="TextureRect" parent="Background" unique_id=1030338573]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="Title1" type="TextureRect" parent="." unique_id=918461153]
 custom_minimum_size = Vector2(150, 150)

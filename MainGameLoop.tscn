@@ -3,9 +3,10 @@
 [ext_resource type="Script" uid="uid://cs1fv7gi2r4kl" path="res://main_game_loop.gd" id="1_v8d43"]
 [ext_resource type="PackedScene" uid="uid://bx0elq213kqbx" path="res://minigames/memory_minigame.tscn" id="4_h46g1"]
 [ext_resource type="PackedScene" uid="uid://jmh44r4qvtyd" path="res://minigames/chess_minigame.tscn" id="5_d1nqu"]
+[ext_resource type="Texture2D" uid="uid://csalgiwyu5k3" path="res://assets/background_desktop.jpeg" id="6_egqk6"]
 [ext_resource type="AudioStream" uid="uid://2otxc17fvic0" path="res://Audio/Music/Oh shit! Where's unsend!.ogg" id="7_e2yq2"]
 [ext_resource type="PackedScene" uid="uid://cetvhssiiotvk" path="res://minigames/flow_minigame.tscn" id="7_flow"]
-[ext_resource type="Texture2D" uid="uid://bkbh488kmh32f" path="res://assets/Desktop.png" id="7_lduhq"]
+[ext_resource type="Texture2D" uid="uid://bbd8in7bi0i60" path="res://assets/email_after.jpeg" id="8_lduhq"]
 [ext_resource type="Texture2D" uid="uid://ca5651ukyodyi" path="res://assets/Email Sent.png" id="8_o85va"]
 [ext_resource type="PackedScene" uid="uid://c4xf5ulweaf0h" path="res://minigames/unblock_minigame.tscn" id="8_unblock"]
 [ext_resource type="Texture2D" uid="uid://bmbr20pxlpt2u" path="res://assets/Email Blank.png" id="9_4uooi"]
@@ -13,6 +14,10 @@
 [sub_resource type="AtlasTexture" id="AtlasTexture_be312"]
 atlas = ExtResource("8_o85va")
 region = Rect2(240, 688, 2656, 1536)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bvlth"]
+atlas = ExtResource("8_lduhq")
+region = Rect2(256, 704, 2608, 1472)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_we7e7"]
 atlas = ExtResource("9_4uooi")
@@ -39,7 +44,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("7_lduhq")
+texture = ExtResource("6_egqk6")
 expand_mode = 1
 stretch_mode = 5
 
@@ -51,6 +56,16 @@ offset_right = 975.0
 offset_bottom = 553.0
 mouse_filter = 2
 texture = SubResource("AtlasTexture_be312")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="EmailAfter" type="TextureRect" parent="BackgroundLayer" unique_id=1111252730]
+custom_minimum_size = Vector2(800, 463)
+offset_left = 172.0
+offset_top = 91.0
+offset_right = 972.0
+offset_bottom = 554.0
+texture = SubResource("AtlasTexture_bvlth")
 expand_mode = 2
 stretch_mode = 5
 
@@ -66,6 +81,7 @@ expand_mode = 3
 stretch_mode = 5
 
 [node name="BossEmail" type="TextureRect" parent="BackgroundLayer" unique_id=1535748430]
+visible = false
 custom_minimum_size = Vector2(300, 321)
 offset_left = 510.0
 offset_top = 160.0
