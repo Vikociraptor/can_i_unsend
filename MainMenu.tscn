@@ -367,7 +367,7 @@ stretch_mode = 5
 [node name="Label" type="Label" parent="Credits" unique_id=2124586751]
 custom_minimum_size = Vector2(100, 150)
 layout_mode = 1
-offset_left = 77.0
+offset_left = 69.0
 offset_top = 16.0
 offset_right = 249.0
 offset_bottom = 166.0

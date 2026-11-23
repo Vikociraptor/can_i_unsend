@@ -30,6 +30,10 @@ window/stretch/aspect="expand"
 mouse_cursor/custom_image="uid://d8rvd6ykevsb"
 mouse_cursor/custom_image_hotspot=Vector2(14, 7)
 
+[gui]
+
+theme/custom_font="uid://cxh8yte1m7sgh"
+
 [input]
 
 Click={
