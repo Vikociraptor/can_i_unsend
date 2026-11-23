@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://dyk6piairfmqt"]
+
+[ext_resource type="Script" uid="uid://s81gk1b8jdaw" path="res://character_intro.gd" id="1_intro"]
+[ext_resource type="Texture2D" uid="uid://bplj0nnyokqqk" path="res://assets/Character Loop/frame_01.png" id="f01"]
+[ext_resource type="Texture2D" uid="uid://bndcwswx1hyx4" path="res://assets/Character Loop/frame_02.png" id="f02"]
+[ext_resource type="Texture2D" uid="uid://cmr0jktbmkvwh" path="res://assets/Character Loop/frame_03.png" id="f03"]
+[ext_resource type="Texture2D" uid="uid://d3fpihpj0ua0l" path="res://assets/Character Loop/frame_04.png" id="f04"]
+[ext_resource type="Texture2D" uid="uid://dro4iti6nd50q" path="res://assets/Character Loop/frame_05.png" id="f05"]
+[ext_resource type="Texture2D" uid="uid://d042wo2mnev7e" path="res://assets/Character Loop/frame_06.png" id="f06"]
+[ext_resource type="Texture2D" uid="uid://dpoes27vp42y8" path="res://assets/Character Loop/frame_07.png" id="f07"]
+[ext_resource type="Texture2D" uid="uid://cn80mdy5vl8bb" path="res://assets/Character Loop/frame_08.png" id="f08"]
+[ext_resource type="Texture2D" uid="uid://d2uh7tnc0yn0o" path="res://assets/Character Loop/frame_09.png" id="f09"]
+[ext_resource type="Texture2D" uid="uid://lfmeshvq76y5" path="res://assets/Character Loop/frame_10.png" id="f10"]
+[ext_resource type="Texture2D" uid="uid://baqnmd65k71ed" path="res://assets/Character Loop/frame_11.png" id="f11"]
+[ext_resource type="Texture2D" uid="uid://csp0k0f52hm1q" path="res://assets/Character Loop/frame_12.png" id="f12"]
+[ext_resource type="Texture2D" uid="uid://cj0nhofy801oo" path="res://assets/Character Loop/frame_13.png" id="f13"]
+[ext_resource type="Texture2D" uid="uid://cb7n07v6kjag3" path="res://assets/Character Loop/frame_14.png" id="f14"]
+[ext_resource type="Texture2D" uid="uid://dm8lt7df8wh05" path="res://assets/Character Loop/frame_15.png" id="f15"]
+[ext_resource type="Texture2D" uid="uid://bwp7w3agoa1yr" path="res://assets/Character Loop/frame_16.png" id="f16"]
+
+[node name="CharacterIntro" type="Control" unique_id=555148298]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_intro")
+frames = Array[Texture2D]([ExtResource("f01"), ExtResource("f02"), ExtResource("f03"), ExtResource("f04"), ExtResource("f05"), ExtResource("f06"), ExtResource("f07"), ExtResource("f08"), ExtResource("f09"), ExtResource("f10"), ExtResource("f11"), ExtResource("f12"), ExtResource("f13"), ExtResource("f14"), ExtResource("f15"), ExtResource("f16")])
+
+[node name="Background" type="ColorRect" parent="." unique_id=1657368861]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Picture" type="TextureRect" parent="." unique_id=1191707832]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("f01")
+expand_mode = 1
+stretch_mode = 6

@@ -101,6 +101,90 @@ texture = SubResource("AtlasTexture_be312")
 expand_mode = 2
 stretch_mode = 5
 
+[node name="Inbox" type="Control" parent="BackgroundLayer/Email" unique_id=50269728]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="Pinned1" type="Label" parent="BackgroundLayer/Email/Inbox" unique_id=1356970121]
+layout_mode = 0
+offset_left = 217.0
+offset_top = 134.0
+offset_right = 357.0
+offset_bottom = 164.0
+theme_override_colors/font_color = Color(0.2, 0.22, 0.28, 1)
+theme_override_font_sizes/font_size = 10
+text = "IT Support
+Reminder: work emails only"
+vertical_alignment = 1
+text_overrun_behavior = 3
+
+[node name="Today1" type="Label" parent="BackgroundLayer/Email/Inbox" unique_id=1211328212]
+layout_mode = 0
+offset_left = 217.0
+offset_top = 198.0
+offset_right = 357.0
+offset_bottom = 228.0
+theme_override_colors/font_color = Color(0.2, 0.22, 0.28, 1)
+theme_override_font_sizes/font_size = 10
+text = "Lisa
+Did you hear about Boss??"
+vertical_alignment = 1
+text_overrun_behavior = 3
+
+[node name="Today2" type="Label" parent="BackgroundLayer/Email/Inbox" unique_id=1439797795]
+layout_mode = 0
+offset_left = 219.0
+offset_top = 242.0
+offset_right = 359.0
+offset_bottom = 272.0
+theme_override_colors/font_color = Color(0.2, 0.22, 0.28, 1)
+theme_override_font_sizes/font_size = 10
+text = "BigBoss
+My office, 3pm. Bring coffee"
+vertical_alignment = 1
+text_overrun_behavior = 3
+
+[node name="Today3" type="Label" parent="BackgroundLayer/Email/Inbox" unique_id=1483463313]
+layout_mode = 0
+offset_left = 221.0
+offset_top = 287.0
+offset_right = 361.0
+offset_bottom = 317.0
+theme_override_colors/font_color = Color(0.2, 0.22, 0.28, 1)
+theme_override_font_sizes/font_size = 10
+text = "HR Team
+Mandatory fun is Friday"
+vertical_alignment = 1
+text_overrun_behavior = 3
+
+[node name="Yesterday1" type="Label" parent="BackgroundLayer/Email/Inbox" unique_id=790702258]
+layout_mode = 0
+offset_left = 218.0
+offset_top = 350.0
+offset_right = 358.0
+offset_bottom = 380.0
+theme_override_colors/font_color = Color(0.2, 0.22, 0.28, 1)
+theme_override_font_sizes/font_size = 10
+text = "Mum
+How do I forward a text?"
+vertical_alignment = 1
+text_overrun_behavior = 3
+
+[node name="Yesterday2" type="Label" parent="BackgroundLayer/Email/Inbox" unique_id=1667165690]
+layout_mode = 0
+offset_left = 220.0
+offset_top = 396.0
+offset_right = 360.0
+offset_bottom = 426.0
+theme_override_colors/font_color = Color(0.2, 0.22, 0.28, 1)
+theme_override_font_sizes/font_size = 10
+text = "Office Kitchen
+WHO ate my yogurt"
+vertical_alignment = 1
+text_overrun_behavior = 3
+
 [node name="EmailAfter" type="TextureRect" parent="BackgroundLayer" unique_id=1111252730]
 visible = false
 custom_minimum_size = Vector2(800, 463)
