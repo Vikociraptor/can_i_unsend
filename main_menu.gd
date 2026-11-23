@@ -8,11 +8,10 @@ func _ready() -> void:
 func _start_game(mode: String) -> void:
 	GameSettings.minigame_count = GameSettings.MODES[mode]
 	_carry_music_over()
-	# Character intro plays first, then it loads MainGameLoop itself.
-	get_tree().change_scene_to_file("res://CharacterIntro.tscn")
+	get_tree().change_scene_to_file("res://MainGameLoop.tscn")
 
 # The menu's player is freed with this scene, so start an identical one on the root
-# (which survives scene changes) at the same point in the track. The intro fades it out.
+# (which survives scene changes) at the same point in the track. MainGameLoop fades it out.
 func _carry_music_over() -> void:
 	var music: AudioStreamPlayer = $AudioStreamPlayer
 	var carried := AudioStreamPlayer.new()

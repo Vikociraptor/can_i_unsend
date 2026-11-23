@@ -12,6 +12,7 @@ extends Node2D
 @export var timerLabel: Label
 @export var end_screen_time := 4.0
 @export var success_time := 2.5  # seconds the success message shows before returning to the menu
+@export var menu_music_fade_time := 0.5  # seconds the menu track takes to fade out once this scene loads
 @export var cursor_move_time := 0.8  # seconds the intro cursor takes to glide onto Send
 @export var loading_spin_speed := 0.4  # full turns per second for the loading icon
 
@@ -40,6 +41,7 @@ var code_order: Array[String] = []
 var placed_minigames: Array[Node2D] = []
 
 func _ready() -> void:
+	_fade_out_menu_music()  # menu track carried over from MainMenu fades as soon as the game loads
 	$BackgroundLayer/BossEmail.hide()
 	$BackgroundLayer/EmailAfter.hide()
 	send_button.hide()
@@ -301,3 +303,13 @@ func _show_incorrect() -> void:
 
 func _on_code_input_text_changed(_new_text: String) -> void:
 	incorrect_label.hide()
+
+# main_menu.gd keeps the menu track playing on the root across the scene change.
+# Fade it out, then free it.
+func _fade_out_menu_music() -> void:
+	var carried := get_tree().root.get_node_or_null("MenuMusic") as AudioStreamPlayer
+	if carried == null:
+		return
+	var fade := carried.create_tween()
+	fade.tween_property(carried, "volume_db", -40.0, menu_music_fade_time)
+	fade.tween_callback(carried.queue_free)
