@@ -55,7 +55,7 @@ region = Rect2(2000, 1408, 400, 368)
 [node name="MainGameLoop" type="Node2D" unique_id=682557079 node_paths=PackedStringArray("timerLabel")]
 script = ExtResource("1_v8d43")
 all_minigames = Array[PackedScene]([ExtResource("7_flow"), ExtResource("8_unblock"), ExtResource("4_h46g1"), ExtResource("5_d1nqu")])
-spawn_positions = Array[Vector2]([Vector2(40, 100), Vector2(600, 100), Vector2(40, 330), Vector2(600, 330)])
+spawn_positions = Array[Vector2]([Vector2(20, 100), Vector2(20, 300), Vector2(305, 100), Vector2(305, 418)])
 timerLabel = NodePath("CanvasLayer/Warning/Timer")
 
 [node name="BackgroundLayer" type="CanvasLayer" parent="." unique_id=242124585]

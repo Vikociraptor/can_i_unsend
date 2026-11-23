@@ -1,8 +1,9 @@
 extends Node2D
 
 @export var all_minigames: Array[PackedScene] = []
+# Top-left corner of each window, in spawn order: 1 top-left, 2 bottom-left, 3 right of 1, (4 right of 2).
 @export var spawn_positions: Array[Vector2] = [
-	Vector2(40, 40), Vector2(600, 40), Vector2(40, 330), Vector2(600, 330)
+	Vector2(20, 20), Vector2(20, 418), Vector2(305, 20), Vector2(305, 418)
 ]
 @export var minigame_scale := 0.6
 @export var intro_duration := 1.3
