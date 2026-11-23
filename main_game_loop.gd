@@ -30,6 +30,7 @@ signal code_wrong
 @onready var warning_layer : CanvasLayer = $CanvasLayer
 @onready var loading : TextureRect = $CanvasLayer/Warning/Loading
 @onready var success_message : Label = $CanvasLayer/Warning/SuccessMessage
+@onready var incorrect_label : Label = $CanvasLayer/Warning/IncorrectLabel
 
 
 var remaining := 0
@@ -42,6 +43,8 @@ func _ready() -> void:
 	$BackgroundLayer/BossEmail.hide()
 	$BackgroundLayer/EmailAfter.hide()
 	send_button.hide()
+	incorrect_label.hide()
+	code_input.text_changed.connect(_on_code_input_text_changed)
 	var minigame_count = GameSettings.minigame_count
 	available_words = words.duplicate()
 	available_words.shuffle()
@@ -278,7 +281,7 @@ func _on_submit_button_pressed() -> void:
 		return
 	if remaining > 0:
 		print("Not all minigames solved yet")
-		code_wrong.emit()
+		_show_incorrect()
 		return
 
 	var typed := _normalize(code_input.text)
@@ -288,4 +291,13 @@ func _on_submit_button_pressed() -> void:
 		_play_win_sequence()
 	else:
 		print("Wrong code. Expected: ", get_expected_code(), " got: ", typed)
-		code_wrong.emit()
+		_show_incorrect()
+
+# Red "Incorrect code" under Submit; it pops in again on every wrong try and clears once the player edits.
+func _show_incorrect() -> void:
+	code_wrong.emit()
+	incorrect_label.show()
+	_pop_in(incorrect_label)
+
+func _on_code_input_text_changed(_new_text: String) -> void:
+	incorrect_label.hide()
