@@ -27,6 +27,8 @@ GameSettings="*uid://lrnwo5anltlm"
 
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+mouse_cursor/custom_image="uid://d8rvd6ykevsb"
+mouse_cursor/custom_image_hotspot=Vector2(14, 7)
 
 [input]
 
