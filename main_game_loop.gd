@@ -11,6 +11,7 @@ extends Node2D
 @export var timer := 21.0;
 @export var timerLabel: Label
 @export var end_screen_time := 4.0
+@export var success_time := 2.5  # seconds the success message shows before returning to the menu
 @export var cursor_move_time := 0.8  # seconds the intro cursor takes to glide onto Send
 @export var loading_spin_speed := 0.4  # full turns per second for the loading icon
 
@@ -28,6 +29,7 @@ signal code_wrong
 # Holds the warning box, intro text, timer, code input and Submit button.
 @onready var warning_layer : CanvasLayer = $CanvasLayer
 @onready var loading : TextureRect = $CanvasLayer/Warning/Loading
+@onready var success_message : Label = $CanvasLayer/Warning/SuccessMessage
 
 
 var remaining := 0
@@ -57,7 +59,7 @@ func _ready() -> void:
 	
 	names.shuffle()
 	code_order = names
-	intro_label.text = "Type result of %s before time runs out." % _join_names(names)
+	intro_label.text = "Type result of %s to stop email before time runs out." % _join_names(names)
 	intro_label.z_index = 10
 
 	## Start Animation Sequence
@@ -67,6 +69,7 @@ func _ready() -> void:
 
 	# 2. Warning pops up and the music kicks in
 	warning_layer.show()
+	$CanvasLayer/Warning/SuccessMessage.hide()
 	_pop_in(warning)
 	music.play()
 
@@ -159,7 +162,8 @@ func _play_send_click() -> void:
 func _clear_desk(lost: bool) -> void:
 	code_input.editable = false
 	send_email_texture.hide()
-	warning_layer.hide()
+	if lost:
+		warning_layer.hide()  # a win keeps the box up to show the success message
 	for minigame in placed_minigames:
 		if is_instance_valid(minigame):
 			if lost:
@@ -167,20 +171,20 @@ func _clear_desk(lost: bool) -> void:
 			minigame.dragging = false
 			minigame.hide()
 
-# Correct code before time ran out: clear the desk, pop up the "unsent" email, then back to the menu.
+# Correct code before time ran out: empty the warning box, show the success message in it, then back to the menu.
 func _play_win_sequence() -> void:
-	timerCount = false
-	timerLabel.add_theme_color_override("font_color", Color.GREEN)
+	timerCount = false  # also hides the spinning loading icon
 	_clear_desk(false)
 
-	# Fade the music out over the whole sequence.
-	create_tween().tween_property(music, "volume_db", -40.0, end_screen_time + 1.0)
+	# Swap the warning's contents for the success message.
+	for child in warning.get_children():
+		if child is CanvasItem:
+			child.hide()
+	_pop_in(success_message)
 
-	await get_tree().create_timer(0.5).timeout
-	$BackgroundLayer/EmailAfter.show()
-	_pop_in($BackgroundLayer/WinEmail)
-
-	await get_tree().create_timer(end_screen_time).timeout
+	# Fade the music out while the message is up, then straight back to the menu.
+	create_tween().tween_property(music, "volume_db", -40.0, success_time)
+	await get_tree().create_timer(success_time).timeout
 	get_tree().change_scene_to_file("res://MainMenu.tscn")
 
 # Shows a popup by fading it up while it grows slightly from 85% size.

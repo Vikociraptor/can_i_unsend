@@ -134,6 +134,44 @@ texture = SubResource("AtlasTexture_tpg87")
 expand_mode = 3
 stretch_mode = 5
 
+[node name="To" type="Label" parent="BackgroundLayer/SendEmail" unique_id=406164467]
+layout_mode = 0
+offset_left = 68.0
+offset_top = 39.0
+offset_right = 220.0
+offset_bottom = 56.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 14
+text = "BigBoss@outlook.com"
+vertical_alignment = 1
+
+[node name="Subject" type="Label" parent="BackgroundLayer/SendEmail" unique_id=1263906490]
+layout_mode = 0
+offset_left = 42.0
+offset_top = 65.0
+offset_right = 82.0
+offset_bottom = 82.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Boss' big secret!!"
+
+[node name="Content" type="Label" parent="BackgroundLayer/SendEmail" unique_id=383951010]
+custom_maximum_size = Vector2(390, 400)
+layout_mode = 0
+offset_left = 42.0
+offset_top = 91.0
+offset_right = 432.0
+offset_bottom = 313.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Hey Lisa,
+
+I was speaking with big boss the ealier today and he had the most awful suit on - he looked like a clown red nose and all.
+
+Cant wait for drinks later today (make sure not to tell boss)!!
+
+Talk later,
+Best employee eva!!"
+autowrap_mode = 3
+
 [node name="BossEmail" type="TextureRect" parent="BackgroundLayer" unique_id=1535748430]
 visible = false
 custom_minimum_size = Vector2(300, 321)
@@ -145,40 +183,39 @@ texture = SubResource("AtlasTexture_0v6pm")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="BackgroundLayer/BossEmail" unique_id=118179410]
+[node name="To" type="Label" parent="BackgroundLayer/BossEmail" unique_id=974520883]
 layout_mode = 0
-offset_left = 86.0
-offset_top = 197.0
-offset_right = 404.0
-offset_bottom = 232.0
+offset_left = 75.0
+offset_top = 52.0
+offset_right = 230.0
+offset_bottom = 69.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 25
-text = "See me in my office NOW!!"
-
-[node name="WinEmail" type="TextureRect" parent="BackgroundLayer" unique_id=1635531900]
-visible = false
-custom_minimum_size = Vector2(300, 321)
-offset_left = 510.0
-offset_top = 160.0
-offset_right = 999.0
-offset_bottom = 544.0
-mouse_filter = 2
-texture = SubResource("AtlasTexture_0v6pm")
-expand_mode = 3
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="BackgroundLayer/WinEmail" unique_id=2092871257]
-layout_mode = 0
-offset_left = 86.0
-offset_top = 180.0
-offset_right = 404.0
-offset_bottom = 250.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 25
-text = "Phew! Email unsent.
-Nobody saw a thing."
-horizontal_alignment = 1
+theme_override_font_sizes/font_size = 14
+text = "unsendd@outlook.com"
 vertical_alignment = 1
+
+[node name="Subject" type="Label" parent="BackgroundLayer/BossEmail" unique_id=1606341968]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 78.0
+offset_right = 213.0
+offset_bottom = 95.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 14
+text = "You are in big trouble"
+vertical_alignment = 1
+
+[node name="Content" type="Label" parent="BackgroundLayer/BossEmail" unique_id=118179410]
+layout_mode = 0
+offset_left = 53.0
+offset_top = 106.0
+offset_right = 371.0
+offset_bottom = 175.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "Hi Tracy,
+
+See me in my office NOW!!"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=672813929]
 
@@ -242,6 +279,22 @@ texture = SubResource("AtlasTexture_hukyg")
 expand_mode = 2
 stretch_mode = 6
 flip_h = true
+
+[node name="SuccessMessage" type="Label" parent="CanvasLayer/Warning" unique_id=350719902]
+visible = false
+layout_mode = 0
+offset_left = 32.0
+offset_top = 198.0
+offset_right = 278.0
+offset_bottom = 311.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
+text = "Email not sent
+
+(That was a close call)"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1019429141]
 stream = ExtResource("7_e2yq2")
