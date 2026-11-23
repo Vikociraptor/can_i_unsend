@@ -52,7 +52,20 @@ var grid = []
 
 var selectedPiece := Vector2i(-1, -1)
 
+## Seconds a wrong move stays on the board (its square flashes red) before the puzzle resets.
+@export var revert_delay := 0.7
+const WRONG_MOVE_COLOUR := Color(0.75, 0.15, 0.15)
+
+# True while a wrong move is on show; clicks are ignored until the board resets.
+var _reverting := false
+var _wrong_cell := Vector2i(-1, -1)
+
 func _ready() -> void:
+	_reset_grid()
+
+# Builds the board from `layout`, i.e. the puzzle's starting position.
+func _reset_grid() -> void:
+	grid = []
 	for i in layout.size():
 		var row = []
 		for j in layout[i].length():
@@ -64,7 +77,7 @@ func is_clickable_cell(cell: Vector2i) -> bool:
 	return insideGrid
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed and !levelWon and !levelLost and interactive:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed and !levelWon and !levelLost and interactive and !_reverting:
 		var cell = Vector2i((make_input_local(event).position / (gridSize + padding)).round())
 		if is_clickable_cell(cell):
 			queue_redraw()
@@ -72,7 +85,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				movePiece(selectedPiece, cell)
 				possibleMoves = []
 				selectedPiece = Vector2i(-1, -1)
-				evaluateMove()
+				evaluateMove(cell)
 			elif !is_empty(cell) and owner_of(cell) == player:
 				possibleMoves = getPossibleMoves(cell)
 				selectedPiece = cell
@@ -84,30 +97,36 @@ func movePiece(from: Vector2i, to: Vector2i) -> void:
 	grid[to.y][to.x] = grid[from.y][from.x]
 	grid[from.y][from.x] = "."
 
-# Called after the player's one move. Decides whether the puzzle was solved.
-func evaluateMove() -> void:
-	if is_in_check(player):
-		levelLost = true
-		return
+# Called after the player's move. Wins the puzzle, or shows the wrong move and resets the board.
+func evaluateMove(moved_to: Vector2i) -> void:
 	var enemy = opponent_of(player)
-	match goal:
-		goals.EscapeCheck:
-			levelWon = true
-		goals.GiveCheck:
-			levelWon = is_in_check(enemy)
-		goals.Checkmate:
-			levelWon = is_checkmate(enemy)
-	levelLost = !levelWon
+	# A move that leaves your own king in check never solves the puzzle.
+	if !is_in_check(player):
+		match goal:
+			goals.EscapeCheck:
+				levelWon = true
+			goals.GiveCheck:
+				levelWon = is_in_check(enemy)
+			goals.Checkmate:
+				levelWon = is_checkmate(enemy)
 	if levelWon:
 		print("You win bitch!")
-	elif levelLost:
+	else:
 		print("You need to work, read a book chump!")
+		_revert_wrong_move(moved_to)
 
-# Move generation. Each function returns the cells the piece at `pos` can move to,
-# including captures of the opposing side. The side is worked out from the piece itself
-# (lowercase = White, uppercase = Black), so this works for opponent pieces too, which lets
-# us find attacked squares for "get out of check" puzzles.
-# moveAmount is the max number of squares to travel; 0 or less means unlimited.
+# Leaves the wrong move on show with its square in red, then puts every piece back.
+func _revert_wrong_move(moved_to: Vector2i) -> void:
+	_reverting = true
+	_wrong_cell = moved_to
+	queue_redraw()
+	await get_tree().create_timer(revert_delay).timeout
+	_wrong_cell = Vector2i(-1, -1)
+	_reverting = false
+	# Time may have run out meanwhile (levelLost is set by the game loop); leave the board as is then.
+	if !levelLost:
+		_reset_grid()
+	queue_redraw()
 
 func is_empty(cell: Vector2i) -> bool:
 	return grid[cell.y][cell.x] == "."
@@ -283,7 +302,9 @@ func _draw() -> void:
 	for y in layout.size():
 		for x in layout[y].length():
 			var center = Vector2(x, y) * step
-			if possibleMoves.has(Vector2i(x, y)):
+			if Vector2i(x, y) == _wrong_cell:
+				draw_rect(Rect2(center - cellVector / 2.0, cellVector), WRONG_MOVE_COLOUR)
+			elif possibleMoves.has(Vector2i(x, y)):
 				draw_rect(Rect2(center - cellVector / 2.0, cellVector), Color.YELLOW)
 			else:
 				draw_rect(Rect2(center - cellVector / 2.0, cellVector), Color.DIM_GRAY)

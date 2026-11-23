@@ -14,29 +14,29 @@
 atlas = ExtResource("2_ceysb")
 region = Rect2(1440, 784, 1472, 1008)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ceysb"]
-atlas = ExtResource("4_8kdf6")
-region = Rect2(1920, 896, 176, 240)
+[sub_resource type="AtlasTexture" id="AtlasTexture_m8k2r"]
+atlas = ExtResource("6_julxm")
+region = Rect2(1264, 832, 224, 336)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lon3f"]
+atlas = ExtResource("9_icedt")
+region = Rect2(704, 752, 272, 464)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jw22c"]
 atlas = ExtResource("5_7oj4k")
 region = Rect2(1472, 848, 224, 304)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_m8k2r"]
-atlas = ExtResource("6_julxm")
-region = Rect2(1264, 832, 224, 336)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0odyl"]
-atlas = ExtResource("7_fne0r")
-region = Rect2(1696, 848, 208, 304)
+[sub_resource type="AtlasTexture" id="AtlasTexture_ceysb"]
+atlas = ExtResource("4_8kdf6")
+region = Rect2(1920, 896, 176, 240)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ykf86"]
 atlas = ExtResource("8_5k7vw")
 region = Rect2(992, 800, 256, 384)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_lon3f"]
-atlas = ExtResource("9_icedt")
-region = Rect2(704, 752, 272, 464)
+[sub_resource type="AtlasTexture" id="AtlasTexture_0odyl"]
+atlas = ExtResource("7_fne0r")
+region = Rect2(1696, 848, 208, 304)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_be312"]
 size = Vector2(408.125, 55)
@@ -67,7 +67,7 @@ offset_bottom = 73.0
 offset_transform_enabled = true
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 34
-text = "Chess"
+text = "Checkmate in One"
 
 [node name="GameArea" type="Control" parent="Window" unique_id=411689752]
 anchors_preset = 0
