@@ -11,6 +11,7 @@ extends Node2D
 @export var timerLabel: Label
 @export var end_screen_time := 4.0
 @export var cursor_move_time := 0.8  # seconds the intro cursor takes to glide onto Send
+@export var loading_spin_speed := 0.4  # full turns per second for the loading icon
 
 var timerCount = false
 @onready var send_button: TextureRect = $BackgroundLayer/SendEmail/SendButton
@@ -25,6 +26,7 @@ signal code_wrong
 @onready var send_email_texture : TextureRect = $BackgroundLayer/SendEmail
 # Holds the warning box, intro text, timer, code input and Submit button.
 @onready var warning_layer : CanvasLayer = $CanvasLayer
+@onready var loading : TextureRect = $CanvasLayer/Warning/Loading
 
 
 var remaining := 0
@@ -74,6 +76,11 @@ func _ready() -> void:
 	timerCount = true
 
 func _process(delta: float) -> void:
+	# Loading icon spins only while the countdown is running.
+	loading.visible = timerCount
+	if timerCount:
+		loading.pivot_offset = loading.size / 2.0  # spin around its centre
+		loading.rotation += TAU * loading_spin_speed * delta
 	if timerCount:
 		if timer > 5.0:
 			timerLabel.text = str(int(floor(timer)))
