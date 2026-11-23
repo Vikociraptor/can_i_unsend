@@ -137,7 +137,7 @@ func _play_send_click() -> void:
 	var target := send_button.get_global_rect().get_center()
 	fake_cursor.position = start - GameSettings.HAND_HOTSPOT
 
-	await get_tree().create_timer(0.5).timeout  # short pause so the player sees the email first
+	await get_tree().create_timer(1.5).timeout  # short pause so the player sees the email first
 
 	# Glide to Send
 	var move := create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)

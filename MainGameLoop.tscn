@@ -425,7 +425,7 @@ stream = ExtResource("7_e2yq2")
 volume_db = -8.0
 bus = &"Music"
 
-[node name="TypingSound" type="AudioStreamPlayer" parent="."]
+[node name="TypingSound" type="AudioStreamPlayer" parent="." unique_id=1963143367]
 stream = ExtResource("typing_sfx")
 volume_db = 13.0
 bus = &"Sound"
