@@ -9,17 +9,22 @@ extends Node2D
 @export var words: Array[String] = ["apple", "rocket", "banana", "spider", "pickle", "laptop", "cactus", "wizard"]
 @export var timer := 21.0;
 @export var timerLabel: Label
-@export var end_screen_time := 4.0  # seconds the win email stays up before returning to the menu
+@export var end_screen_time := 4.0
+@export var cursor_move_time := 0.8  # seconds the intro cursor takes to glide onto Send
 
-var timerCount = true
+var timerCount = false
+@onready var send_button: TextureRect = $BackgroundLayer/SendEmail/SendButton
+@onready var warning: TextureRect = $CanvasLayer/Warning
 
 signal code_correct
 signal code_wrong
 
-@onready var intro_label : Label = $CanvasLayer/IntroLabel
-@onready var code_input : LineEdit = $CanvasLayer/HBoxContainer/LineEdit
+@onready var intro_label : Label = $CanvasLayer/Warning/IntroLabel
+@onready var code_input : LineEdit = $CanvasLayer/Warning/LineEdit
+@onready var music : AudioStreamPlayer = $AudioStreamPlayer
 @onready var send_email_texture : TextureRect = $BackgroundLayer/SendEmail
-@export var input_container : Container
+# Holds the warning box, intro text, timer, code input and Submit button.
+@onready var warning_layer : CanvasLayer = $CanvasLayer
 
 
 var remaining := 0
@@ -31,6 +36,7 @@ var placed_minigames: Array[Node2D] = []
 func _ready() -> void:
 	$BackgroundLayer/BossEmail.hide()
 	$BackgroundLayer/EmailAfter.hide()
+	send_button.hide()
 	var minigame_count = GameSettings.minigame_count
 	available_words = words.duplicate()
 	available_words.shuffle()
@@ -39,8 +45,6 @@ func _ready() -> void:
 	selected.resize(minigame_count)
 	remaining = selected.size()
 
-	#input_container.hide()
-	
 	var minigames: Array[Node2D] = []
 	var names: Array[String] = []
 	for scene in selected:
@@ -50,14 +54,25 @@ func _ready() -> void:
 	
 	names.shuffle()
 	code_order = names
-	intro_label.text = "Type the result of %s to stop the email send." % _join_names(names)
+	intro_label.text = "Type result of %s before time runs out." % _join_names(names)
 	intro_label.z_index = 10
-	
+
+	## Start Animation Sequence
+	warning_layer.hide()
+	# 1. Send button gets "clicked"
+	await _play_send_click()
+
+	# 2. Warning pops up and the music kicks in
+	warning_layer.show()
+	_pop_in(warning)
+	music.play()
+
+	# 3. Minigames appear 1.3 s later, and the countdown starts with them
 	await get_tree().create_timer(intro_duration).timeout
-	
 	for minigame in minigames:
 		place_minigame(minigame)
-		
+	timerCount = true
+
 func _process(delta: float) -> void:
 	if timerCount:
 		if timer > 5.0:
@@ -79,12 +94,64 @@ func _process(delta: float) -> void:
 			await get_tree().create_timer(end_screen_time).timeout
 			get_tree().change_scene_to_file("res://MainMenu.tscn")
 
-# Ends the round: locks the input and hides the email, prompt and every minigame window.
+# Intro: a copy of the player's cursor glides onto Send, the blue button lights up, and it gets clicked.
+func _play_send_click() -> void:
+	# The real mouse is hidden and a look-alike (same images as GameSettings) is drawn on top of everything.
+	var cursor_layer := CanvasLayer.new()
+	cursor_layer.layer = 128
+	add_child(cursor_layer)
+	var fake_cursor := TextureRect.new()
+	fake_cursor.texture = GameSettings.HAND_CURSOR
+	fake_cursor.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	cursor_layer.add_child(fake_cursor)
+	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
+
+	# Start where the player's mouse actually is, so it feels like the cursor got taken over.
+	var screen := get_viewport().get_visible_rect()
+	var start := get_viewport().get_mouse_position().clamp(screen.position, screen.end)
+	var target := send_button.get_global_rect().get_center()
+	fake_cursor.position = start - GameSettings.HAND_HOTSPOT
+
+	await get_tree().create_timer(0.5).timeout  # short pause so the player sees the email first
+
+	# Glide to Send
+	var move := create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	move.tween_property(fake_cursor, "position", target - GameSettings.HAND_HOTSPOT, cursor_move_time)
+	await move.finished
+
+	# Hover: the blue send button appears
+	send_button.pivot_offset = send_button.size / 2.0
+	send_button.show()
+	await get_tree().create_timer(0.25).timeout
+
+	# Press down (fist cursor)
+	fake_cursor.texture = GameSettings.GRAB_CURSOR
+	fake_cursor.position = target - GameSettings.GRAB_HOTSPOT
+	var press := create_tween()
+	press.tween_property(send_button, "scale", Vector2.ONE * 0.85, 0.08)
+	press.parallel().tween_property(send_button, "modulate", Color(0.7, 0.7, 0.7), 0.08)
+	await press.finished
+
+	# Release with a little bounce (back to the hand)
+	fake_cursor.texture = GameSettings.HAND_CURSOR
+	fake_cursor.position = target - GameSettings.HAND_HOTSPOT
+	var release := create_tween()
+	release.tween_property(send_button, "scale", Vector2.ONE, 0.2).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	release.parallel().tween_property(send_button, "modulate", Color.WHITE, 0.2)
+	await release.finished
+
+	await get_tree().create_timer(0.3).timeout
+
+	# Hand control back: put the real mouse where the fake one ended, then swap them.
+	get_viewport().warp_mouse(target)
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	cursor_layer.queue_free()
+
+# Ends the round: locks the input and hides the email, warning box and every minigame window.
 func _clear_desk(lost: bool) -> void:
 	code_input.editable = false
 	send_email_texture.hide()
-	input_container.hide()
-	intro_label.hide()
+	warning_layer.hide()
 	for minigame in placed_minigames:
 		if is_instance_valid(minigame):
 			if lost:
@@ -99,7 +166,6 @@ func _play_win_sequence() -> void:
 	_clear_desk(false)
 
 	# Fade the music out over the whole sequence.
-	var music: AudioStreamPlayer = $AudioStreamPlayer
 	create_tween().tween_property(music, "volume_db", -40.0, end_screen_time + 1.0)
 
 	await get_tree().create_timer(0.5).timeout
@@ -181,7 +247,6 @@ func _on_minigame_finished(minigame: Node2D) -> void:
 	remaining -= 1
 	if remaining == 0:
 		print("All minigames solved: ", results)
-		input_container.show()
 		#timerCount = false
 
 # The words from each minigame, in intro order, e.g. "rocketapple".
