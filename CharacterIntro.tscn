@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dyk6piairfmqt"]
 
 [ext_resource type="Script" uid="uid://s81gk1b8jdaw" path="res://character_intro.gd" id="1_intro"]
+[ext_resource type="AudioStream" uid="uid://pqv3066xmcpn" path="res://Audio/Soundeffects/sigh.mp3" id="18_eu7q6"]
 [ext_resource type="Texture2D" uid="uid://bplj0nnyokqqk" path="res://assets/Character Loop/frame_01.png" id="f01"]
 [ext_resource type="Texture2D" uid="uid://bndcwswx1hyx4" path="res://assets/Character Loop/frame_02.png" id="f02"]
 [ext_resource type="Texture2D" uid="uid://cmr0jktbmkvwh" path="res://assets/Character Loop/frame_03.png" id="f03"]
@@ -48,3 +49,7 @@ mouse_filter = 2
 texture = ExtResource("f01")
 expand_mode = 1
 stretch_mode = 6
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1119904434]
+stream = ExtResource("18_eu7q6")
+autoplay = true

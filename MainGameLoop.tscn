@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://dbpedu7axnmuy" path="res://assets/submit.png" id="14_okjgo"]
 [ext_resource type="Texture2D" uid="uid://cyxsp4ymkynnh" path="res://assets/edit_text.png" id="14_wusq5"]
 [ext_resource type="Texture2D" uid="uid://bd5ogjmv7fnif" path="res://assets/submit_pressed.png" id="15_wusq5"]
+[ext_resource type="AudioStream" uid="uid://dxyh2754ys3qp" path="res://Audio/Soundeffects/typing.wav" id="typing_sfx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y4010"]
 atlas = ExtResource("7_uwcp4")
@@ -423,5 +424,10 @@ vertical_alignment = 1
 stream = ExtResource("7_e2yq2")
 volume_db = -8.0
 bus = &"Music"
+
+[node name="TypingSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("typing_sfx")
+volume_db = 13.0
+bus = &"Sound"
 
 [connection signal="pressed" from="CanvasLayer/Warning/Button" to="." method="_on_submit_button_pressed"]

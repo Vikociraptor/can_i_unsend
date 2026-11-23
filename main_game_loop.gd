@@ -13,6 +13,7 @@ extends Node2D
 @export var end_screen_time := 4.0
 @export var success_time := 2.5  # seconds the success message shows before returning to the menu
 @export var menu_music_fade_time := 0.5  # seconds the menu track takes to fade out once this scene loads
+@export var typing_stop_delay := 0.25  # seconds after the last keystroke before the typing sound stops
 @export var cursor_move_time := 0.8  # seconds the intro cursor takes to glide onto Send
 @export var loading_spin_speed := 0.4  # full turns per second for the loading icon
 
@@ -32,6 +33,8 @@ signal code_wrong
 @onready var loading : TextureRect = $CanvasLayer/Warning/Loading
 @onready var success_message : Label = $CanvasLayer/Warning/SuccessMessage
 @onready var incorrect_label : Label = $CanvasLayer/Warning/IncorrectLabel
+@onready var typing_sound : AudioStreamPlayer = $TypingSound
+var _typing_idle := 0.0
 
 
 var remaining := 0
@@ -85,6 +88,12 @@ func _ready() -> void:
 	timerCount = true
 
 func _process(delta: float) -> void:
+	# Stop the typing sound once the player pauses (or the round ends and input locks).
+	if typing_sound.playing:
+		_typing_idle += delta
+		if _typing_idle > typing_stop_delay or not code_input.editable:
+			typing_sound.stop()
+
 	# Loading icon spins only while the countdown is running.
 	loading.visible = timerCount
 	if timerCount:
@@ -140,7 +149,8 @@ func _play_send_click() -> void:
 	send_button.show()
 	await get_tree().create_timer(0.25).timeout
 
-	# Press down (fist cursor)
+	# Press down (fist cursor + click sound)
+	GameSettings.play_click()
 	fake_cursor.texture = GameSettings.GRAB_CURSOR
 	fake_cursor.position = target - GameSettings.GRAB_HOTSPOT
 	var press := create_tween()
@@ -303,6 +313,12 @@ func _show_incorrect() -> void:
 
 func _on_code_input_text_changed(_new_text: String) -> void:
 	incorrect_label.hide()
+	# typing.wav is a long clip of continuous typing: keep it running while keys come in,
+	# starting each burst somewhere random so it doesn't repeat. _process stops it after a pause.
+	_typing_idle = 0.0
+	if not typing_sound.playing:
+		var length := typing_sound.stream.get_length()
+		typing_sound.play(randf_range(0.0, maxf(length - 1.0, 0.0)))
 
 # main_menu.gd keeps the menu track playing on the root across the scene change.
 # Fade it out, then free it.
