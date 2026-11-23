@@ -60,9 +60,11 @@ offset_top = 26.0
 offset_right = 354.0
 offset_bottom = 73.0
 offset_transform_enabled = true
+offset_transform_position = Vector2(0, 5)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 34
 text = "Unblock Me"
+vertical_alignment = 1
 
 [node name="GameArea" type="Control" parent="Window" unique_id=1889844999]
 anchors_preset = 0
