@@ -3,13 +3,23 @@
 [ext_resource type="Script" uid="uid://cs1fv7gi2r4kl" path="res://main_game_loop.gd" id="1_v8d43"]
 [ext_resource type="PackedScene" uid="uid://bx0elq213kqbx" path="res://minigames/memory_minigame.tscn" id="4_h46g1"]
 [ext_resource type="PackedScene" uid="uid://jmh44r4qvtyd" path="res://minigames/chess_minigame.tscn" id="5_d1nqu"]
-[ext_resource type="Texture2D" uid="uid://csalgiwyu5k3" path="res://assets/background_desktop.jpeg" id="6_egqk6"]
+[ext_resource type="Texture2D" uid="uid://bkbh488kmh32f" path="res://assets/Desktop.png" id="6_4uooi"]
 [ext_resource type="AudioStream" uid="uid://2otxc17fvic0" path="res://Audio/Music/Oh shit! Where's unsend!.ogg" id="7_e2yq2"]
 [ext_resource type="PackedScene" uid="uid://cetvhssiiotvk" path="res://minigames/flow_minigame.tscn" id="7_flow"]
+[ext_resource type="Texture2D" uid="uid://cekvu2gcagnsf" path="res://assets/files.png" id="7_uwcp4"]
+[ext_resource type="Texture2D" uid="uid://d2f6f0dc73xcf" path="res://assets/apps.png" id="8_8xks6"]
 [ext_resource type="Texture2D" uid="uid://bbd8in7bi0i60" path="res://assets/email_after.jpeg" id="8_lduhq"]
 [ext_resource type="Texture2D" uid="uid://ca5651ukyodyi" path="res://assets/Email Sent.png" id="8_o85va"]
 [ext_resource type="PackedScene" uid="uid://c4xf5ulweaf0h" path="res://minigames/unblock_minigame.tscn" id="8_unblock"]
 [ext_resource type="Texture2D" uid="uid://bmbr20pxlpt2u" path="res://assets/Email Blank.png" id="9_4uooi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y4010"]
+atlas = ExtResource("7_uwcp4")
+region = Rect2(2896, 112, 612, 2224)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ecwsn"]
+atlas = ExtResource("8_8xks6")
+region = Rect2(0, 0, 1184, 752)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_be312"]
 atlas = ExtResource("8_o85va")
@@ -37,15 +47,33 @@ input_container = NodePath("CanvasLayer/HBoxContainer")
 [node name="BackgroundLayer" type="CanvasLayer" parent="." unique_id=242124585]
 layer = -1
 
-[node name="Background" type="TextureRect" parent="BackgroundLayer" unique_id=630135036]
+[node name="Background" type="TextureRect" parent="BackgroundLayer" unique_id=246652343]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("6_egqk6")
+texture = ExtResource("6_4uooi")
 expand_mode = 1
+stretch_mode = 5
+
+[node name="Files" type="TextureRect" parent="BackgroundLayer/Background" unique_id=2045115131]
+layout_mode = 0
+offset_left = 970.0
+offset_top = 34.0
+offset_right = 1148.5918
+offset_bottom = 593.0
+texture = SubResource("AtlasTexture_y4010")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Apps" type="TextureRect" parent="BackgroundLayer/Background" unique_id=830371083]
+layout_mode = 0
+offset_right = 396.0
+offset_bottom = 243.0
+texture = SubResource("AtlasTexture_ecwsn")
+expand_mode = 3
 stretch_mode = 5
 
 [node name="Email" type="TextureRect" parent="BackgroundLayer" unique_id=1865812171]

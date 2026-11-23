@@ -1,13 +1,17 @@
 [gd_scene format=3 uid="uid://c4xf5ulweaf0h"]
 
 [ext_resource type="Script" uid="uid://ctqyg4130u6cg" path="res://minigames/puzzle_minigame.gd" id="1_3jprq"]
-[ext_resource type="Texture2D" uid="uid://c3oiknfcds6jw" path="res://assets/Gameplay Background.png" id="2_bg"]
+[ext_resource type="Texture2D" uid="uid://b0ybg1o7j2b3u" path="res://assets/gameplay_window.png" id="2_bg"]
 [ext_resource type="Texture2D" uid="uid://bvxl6emh4vjkt" path="res://assets/Block 1.png" id="5_3cmal"]
 [ext_resource type="Texture2D" uid="uid://c22mk3g2u0kxe" path="res://assets/Block 2.png" id="6_3j612"]
 [ext_resource type="Script" uid="uid://mgogmh6aapox" path="res://Scripts/UnblockMe/grid.gd" id="6_grid"]
 [ext_resource type="PackedScene" uid="uid://b6bk20wwj8asn" path="res://PackedScenes/block.tscn" id="7_block"]
 [ext_resource type="Texture2D" uid="uid://ecoyqsofghr" path="res://assets/Block 3.png" id="7_lmrjh"]
 [ext_resource type="Texture2D" uid="uid://bxnukf4u1c8lo" path="res://assets/Block 4.png" id="8_jdoad"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_window"]
+atlas = ExtResource("2_bg")
+region = Rect2(1440, 784, 1472, 1008)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f62wh"]
 atlas = ExtResource("5_3cmal")
@@ -30,7 +34,7 @@ atlas = ExtResource("6_3j612")
 region = Rect2(752, 704, 336, 208)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_be312"]
-size = Vector2(418.25, 55)
+size = Vector2(408.125, 55)
 
 [node name="UnblockMinigame" type="Node2D" unique_id=553078582 node_paths=PackedStringArray("game")]
 script = ExtResource("1_3jprq")
@@ -43,22 +47,19 @@ offset_left = -225.0
 offset_top = -175.0
 offset_right = 225.0
 offset_bottom = 175.0
-texture = ExtResource("2_bg")
-region_rect = Rect2(176, 144, 3072, 2096)
+texture = SubResource("AtlasTexture_window")
 patch_margin_left = 3
-patch_margin_top = 23
+patch_margin_top = 5
 patch_margin_right = 3
-patch_margin_bottom = 3
+patch_margin_bottom = 1
 
 [node name="Title" type="Label" parent="Window" unique_id=347976614]
 layout_mode = 0
-offset_left = 14.0
-offset_top = 68.0
-offset_right = 264.0
-offset_bottom = 115.0
-rotation = -0.06632251
+offset_left = 104.0
+offset_top = 26.0
+offset_right = 354.0
+offset_bottom = 73.0
 offset_transform_enabled = true
-offset_transform_position = Vector2(6, 5)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 34
 text = "Unblock Me"
@@ -84,10 +85,10 @@ block_textures = Dictionary[int, Texture2D]({
 goal_block_texture = SubResource("AtlasTexture_jib4c")
 
 [node name="Result" type="Label" parent="." unique_id=1376386682]
-offset_left = -203.0
-offset_top = -3.0
-offset_right = 197.0
-offset_bottom = 37.0
+offset_left = -200.0
+offset_top = -16.0
+offset_right = 200.0
+offset_bottom = 24.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 23
 horizontal_alignment = 1
@@ -96,8 +97,7 @@ vertical_alignment = 1
 [node name="MoveArea" type="Area2D" parent="." unique_id=2037982697]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MoveArea" unique_id=1544029002]
-position = Vector2(-3, -95.00001)
-rotation = -0.07853982
+position = Vector2(-0.0625, -125)
 shape = SubResource("RectangleShape2D_be312")
 
 [connection signal="mouse_entered" from="MoveArea" to="." method="_on_move_area_mouse_entered"]

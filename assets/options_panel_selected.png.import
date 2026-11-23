@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://decg5ty32a7db"
-path="res://.godot/imported/gameplay_window.jpeg-e3513735800b142b2bfc14751a14d777.ctex"
+uid="uid://cily243btpf14"
+path="res://.godot/imported/options_panel_selected.png-4e0628cca86c840fc2edd347b1aa2a06.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gameplay_window.jpeg"
-dest_files=["res://.godot/imported/gameplay_window.jpeg-e3513735800b142b2bfc14751a14d777.ctex"]
+source_file="res://assets/options_panel_selected.png"
+dest_files=["res://.godot/imported/options_panel_selected.png-4e0628cca86c840fc2edd347b1aa2a06.ctex"]
 
 [params]
 
